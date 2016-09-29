@@ -1,0 +1,15 @@
+extends ../../layout
+
+block content
+    div.row
+        div.col-sm-12
+            h1 Register
+            form
+                div.form-group
+                    input.form-control(type="email" placeholder="username")
+                div.form-group
+                    input.form-control(type="password" placeholder="password")
+                div.form-group
+                    input.form-control(type="password" placeholder="verify password")
+                button.btn.btn-success.btn-block Register
+                button.btn.btn-danger.btn-block Cancel

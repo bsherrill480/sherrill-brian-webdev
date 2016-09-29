@@ -1,7 +1,17 @@
 doctype html
 html
   head
+    meta(name="viewport" content="width=device-width, initial-scale=1")
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type='javascript')
   body
-    block content
+    div
+      block header:
+    div.container-fluid
+      block content
+    div
+      block footer
+
+
