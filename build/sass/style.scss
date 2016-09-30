@@ -1,6 +1,10 @@
+// I could clean up the imports by adding this dir to gulpfile's sass compiler, but then I lose my
+//IDE's autocomplete
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/clearfix';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid';
+
+$website-blue: #3F8ACD; // From website/...
 
 $bootstrap-col-total: 12;
 $landscape-responsive-nav-size: 4;

@@ -1,0 +1,18 @@
+include buttons
+mixin listHeader(listName)
+    div.row
+        div.col-sm-12
+            +backButton
+            span #{listName}
+
+mixin leftListRightContent(listName, contentName)
+    h4
+        div.landscape-responsive-header
+            div.landscape-responsive-header__landscape
+                div.landscape-responsive
+                    div.landscape-responsive__nav
+                        +backButton
+                        span #{listName}
+                    div.landscape-responsive__content #{contentName}
+            div.landscape-responsive-header__portrait
+                +listHeader(listName)
