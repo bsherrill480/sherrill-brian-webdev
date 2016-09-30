@@ -1,0 +1,29 @@
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid';
+
+//.landscape-responsive {
+//
+//}
+
+$bootstrap-col-total: 12;
+$landscape-responsive-nav-size: 4;
+$landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive-nav-size;
+
+.landscape-responsive__nav {
+  @media (max-width: $screen-xs-max) {
+    display: none;
+  }
+  @include make-sm-column($landscape-responsive-nav-size, $grid-gutter-width)
+}
+
+.landscape-responsive__content {
+  @include make-sm-column($landscape-responsive-content-size, $grid-gutter-width)
+}
+
+
+.footer {
+  bottom: 0;
+  height: 60px;
+  position: absolute;
+  width: 100%;
+}
