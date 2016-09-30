@@ -1,4 +1,8 @@
 extends websites-nav-layout
+include ../components/headers/landscape-responsive-headers
+block header
+    +left-list-right-content('Websites', 'New Website')
+
 block website-content
     p NEW WEBSITE
 

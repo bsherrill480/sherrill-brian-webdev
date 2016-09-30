@@ -1,25 +1,40 @@
-.landscape-responsive__nav {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px; }
-  @media (max-width: 767px) {
-    .landscape-responsive__nav {
-      display: none; } }
-  @media (min-width: 768px) {
-    .landscape-responsive__nav {
-      float: left;
-      width: 33.33333333%; } }
+@media (min-width: 768px) {
+  .landscape-responsive-header .landscape-responsive-header__portrait {
+    display: none; } }
 
-.landscape-responsive__content {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px; }
-  @media (min-width: 768px) {
-    .landscape-responsive__content {
-      float: left;
-      width: 66.66666667%; } }
+@media (max-width: 767px) {
+  .landscape-responsive-header .landscape-responsive-header__landscape {
+    display: none; } }
+
+.landscape-responsive {
+  margin-left: -15px;
+  margin-right: -15px; }
+  .landscape-responsive:before, .landscape-responsive:after {
+    content: " ";
+    display: table; }
+  .landscape-responsive:after {
+    clear: both; }
+  .landscape-responsive .landscape-responsive__nav {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    @media (max-width: 767px) {
+      .landscape-responsive .landscape-responsive__nav {
+        display: none; } }
+    @media (min-width: 768px) {
+      .landscape-responsive .landscape-responsive__nav {
+        float: left;
+        width: 33.33333333%; } }
+  .landscape-responsive .landscape-responsive__content {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px; }
+    @media (min-width: 768px) {
+      .landscape-responsive .landscape-responsive__content {
+        float: left;
+        width: 66.66666667%; } }
 
 .footer {
   bottom: 0;

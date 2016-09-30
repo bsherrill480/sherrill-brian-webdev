@@ -1,0 +1,9 @@
+mixin left-list-right-content(listName, contentName)
+    div.landscape-responsive-header
+        div.landscape-responsive-header__landscape
+            div.landscape-responsive
+                div.landscape-responsive__nav #{listName}
+                div.landscape-responsive__content #{contentName}
+        div.landscape-responsive-header__portrait
+            div.row
+                div.col-sm-12 #{contentName}
