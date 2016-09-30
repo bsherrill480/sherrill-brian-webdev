@@ -9,4 +9,8 @@ router.get('/register.html', function (req, res, next) {
     res.render('assignment/user_pages/register');
 });
 
+router.get('/website-list.html', function (req, res, next) {
+    res.render('assignment/website_pages/website_list');
+});
+
 module.exports = router;
