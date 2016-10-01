@@ -1,5 +1,15 @@
 extends ../layout
 
-block footer
-    p.text-muted Place sticky footer content here.
+include ../components/buttons
 
+block header
+    div.navbar.navbar-fixed-top.header-nav.header-nav--website-header
+        div.container-fluid.header-nav__content
+            block website-header
+
+block footer
+    div.navbar.navbar-fixed-bottom.footer-nav.footer-nav--website-header
+        div.container-fluid.footer-nav__content
+            div.row
+                div.col-sm-12.text-right
+                    +userButton

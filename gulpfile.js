@@ -8,7 +8,8 @@ gulp.task('sass-lint', function () {
   return gulp.src(SASS_FILES)
     .pipe(sassLint({
         rules: {
-            'class-name-format': 0 // It doesnt like my BEM conventions
+            'class-name-format': 0, // It doesnt like my BEM conventions
+            'placeholder-name-format': 0 // It doesnt like my BEM conventions
         }
     }))
     .pipe(sassLint.format())

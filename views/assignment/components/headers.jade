@@ -1,18 +1,33 @@
 include buttons
+
 mixin listHeader(listName)
     div.row
         div.col-sm-12
-            +backButton
+            span
+                +backButton
             span #{listName}
+            div.pull-right
+                +plusButton
+
+mixin completedHeader(listName)
+    div.row
+        div.col-sm-12
+            span
+                +backButton
+            span #{listName}
+            div.pull-right
+                +checkButton
 
 mixin leftListRightContent(listName, contentName)
-    h4
-        div.landscape-responsive-header
-            div.landscape-responsive-header__landscape
-                div.landscape-responsive
-                    div.landscape-responsive__nav
-                        +backButton
-                        span #{listName}
-                    div.landscape-responsive__content #{contentName}
-            div.landscape-responsive-header__portrait
-                +listHeader(listName)
+    div.landscape-or-portrait
+        div.landscape-or-portrait__landscape
+            div.landscape-responsive
+                div.landscape-responsive__nav
+                    +listHeader(contentName)
+                div.landscape-responsive__content
+                    span #{contentName}
+                    div.pull-right
+                        +checkButton
+
+        div.landscape-or-portrait__portrait
+            +completedHeader(contentName)

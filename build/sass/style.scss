@@ -4,30 +4,96 @@
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/clearfix';
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid';
 
-$website-blue: #3F8ACD; // From website/...
+// website pages, not whole website
+$website-header-footer-bg-color:  rgb(63, 138, 205);
+$website-header-footer-font-color: #fff;
 
+// for landscape-responsive
 $bootstrap-col-total: 12;
 $landscape-responsive-nav-size: 4;
 $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive-nav-size;
 
-.landscape-responsive-header {
-  .landscape-responsive-header__portrait {
+// using of BEM, see http://getbem.com/introduction/ if unfamiliar
+
+// to style the color and background of the header and footer
+@mixin header-footer-display($bg-color, $font-color) {
+  background-color: $bg-color;
+  color: $font-color;
+}
+
+// place holder class to contain common stylings between header and footer
+%header-footer-nav {
+  align-items: center;
+  display: flex;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: $font-size-h4;
+  font-weight: bold;
+  height: $navbar-height;
+}
+
+// place holder class to contain common stylings between header and footer content
+%header-footer-nav__content {
+  flex: 1; // fill container
+}
+
+// Header nav
+.header-nav {
+  @extend %header-footer-nav;
+
+  .header-nav__content {
+    @extend %header-footer-nav__content;
+
+    .back-button {
+      margin-right: 1em;
+    }
+  }
+
+  // state modifier for website pages
+  &.header-nav--website-header {
+    @include header-footer-display($website-header-footer-bg-color,
+      $website-header-footer-font-color);
+  }
+}
+
+// Footer nav
+.footer-nav {
+  @extend %header-footer-nav;
+
+  .footer-nav__content {
+    @extend %header-footer-nav__content;
+
+    .back-button {
+      margin-right: 1em;
+    }
+  }
+
+  // state modifier for website pages
+  &.footer-nav--website-header {
+    @include header-footer-display($website-header-footer-bg-color,
+      $website-header-footer-font-color);
+  }
+}
+
+// Display landscape-or-portrait__landscape if the screen is at least landscape width,
+// else display landscape-or-portrait__portrait
+// Should I change "or" to "xor"?
+.landscape-or-portrait {
+  .landscape-or-portrait__portrait {
     @media (min-width: $screen-sm-min) {
       display: none;
     }
   }
 
-  .landscape-responsive-header__landscape {
+  .landscape-or-portrait__landscape {
     @media (max-width: $screen-xs-max) {
       display: none;
     }
   }
 }
 
-// Block
-.landscape-responsive { // no rules for this yet
-  // Block Element
-
+// Display nav and content if the screen is at least landscape width,
+// else just display content
+.landscape-responsive {
   @include make-row;
 
   .landscape-responsive__nav {
@@ -37,15 +103,15 @@ $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive
     @include make-sm-column($landscape-responsive-nav-size, $grid-gutter-width)
   }
 
-  // Block Element
   .landscape-responsive__content {
     @include make-sm-column($landscape-responsive-content-size, $grid-gutter-width)
   }
+
+  // state modifier, add border to right of nav
+  &.landscape-responsive--border-separated {
+    .landscape-responsive__nav {
+      border-right: 1px solid $page-header-border-color;
+    }
+  }
 }
 
-.footer {
-  bottom: 0;
-  height: 60px;
-  position: absolute;
-  width: 100%;
-}
