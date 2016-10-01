@@ -1,0 +1,18 @@
+extends page-nav-layout
+
+include ../components/headers
+
+block page-header
+    +leftListRightContent('Pages', 'Edit Page')
+
+block page-content
+    form
+        div.form-group
+            label Name
+            input.form-control(type="text" placeholder="Page Name" value="Blog Post")
+        div.form-group
+            label Title
+            input.form-control(type="text" placeholder="Page Title")
+        button.btn.btn-danger.btn-block Delete
+
+

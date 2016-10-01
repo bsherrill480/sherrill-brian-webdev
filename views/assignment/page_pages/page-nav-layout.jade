@@ -1,0 +1,10 @@
+extends layout
+
+block between-header-footer
+    div(class="landscape-responsive landscape-responsive--border-separated " +
+    "landscape-responsive--scrollable landscape-responsive--header-padding")
+        div.landscape-responsive__nav
+            include components/page_list
+        div.landscape-responsive__content
+            block page-content
+

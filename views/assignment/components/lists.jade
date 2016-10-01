@@ -1,0 +1,10 @@
+mixin listItem(name)
+    div.list-item
+        a(href="#") #{name}
+
+mixin editableListItem(name)
+    div.list-item
+        a(href="#") #{name}
+        div.pull-right
+            a(href="#")
+                +cogButton

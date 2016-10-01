@@ -19,12 +19,20 @@
   background-color: #3f8acd;
   color: #fff; }
 
+.header-nav.header-nav--page-header {
+  background-color: #f7f7f7;
+  color: inherit; }
+
 .footer-nav .footer-nav__content .back-button {
   margin-right: 1em; }
 
-.footer-nav.footer-nav--website-header {
+.footer-nav.footer-nav--website-footer {
   background-color: #3f8acd;
   color: #fff; }
+
+.footer-nav.footer-nav--page-footer {
+  background-color: #f7f7f7;
+  color: #428dc9; }
 
 .between-header-footer {
   bottom: 50px;
@@ -83,5 +91,5 @@
   .landscape-responsive.landscape-responsive--scrollable .landscape-responsive__content {
     overflow-y: auto; }
 
-.website-item {
+.list-item {
   margin-bottom: 1em; }

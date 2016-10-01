@@ -1,0 +1,12 @@
+extends layout
+
+include ../components/headers
+
+block page-header
+    +listHeader('Pages')
+
+block between-header-footer
+    div.row.header-padding
+        div.col-sm-12
+            include components/page_list
+

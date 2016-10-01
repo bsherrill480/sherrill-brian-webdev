@@ -1,0 +1,17 @@
+extends page-nav-layout
+
+include ../components/headers
+
+block page-header
+    +leftListRightContent('Pages', 'New Page')
+
+block page-content
+    form
+        div.form-group
+            label Name
+            input.form-control(type="text" placeholder="Page Name")
+        div.form-group
+            label Title
+            input.form-control(type="text" placeholder="Page Title")
+
+

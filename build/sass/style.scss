@@ -5,8 +5,13 @@
 @import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid';
 
 // website pages, not whole website
-$website-header-footer-bg-color:  rgb(63, 138, 205);
+$website-header-footer-bg-color:  rgb(63, 138, 205); // obtained from sampling wireframe
 $website-header-footer-font-color: #fff;
+
+// page pages, not all pages
+$page-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wireframe
+$page-header-font-color: inherit;
+$page-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
 
 // for landscape-responsive class
 $bootstrap-col-total: 12;
@@ -60,6 +65,12 @@ $header-padding: 1em;
     @include header-footer-display($website-header-footer-bg-color,
       $website-header-footer-font-color);
   }
+
+  // state modifier for page pages
+  &.header-nav--page-header {
+    @include header-footer-display($page-header-footer-bg-color,
+      $page-header-font-color);
+  }
 }
 
 // Footer nav
@@ -75,9 +86,15 @@ $header-padding: 1em;
   }
 
   // state modifier for website pages
-  &.footer-nav--website-header {
+  &.footer-nav--website-footer {
     @include header-footer-display($website-header-footer-bg-color,
       $website-header-footer-font-color);
+  }
+
+  // state modifier for page pages
+  &.footer-nav--page-footer {
+    @include header-footer-display($page-header-footer-bg-color,
+      $page-footer-font-color);
   }
 }
 
@@ -154,7 +171,7 @@ $header-padding: 1em;
   }
 }
 
-.website-item {
+.list-item {
   margin-bottom: 1em;
 }
 
