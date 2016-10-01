@@ -2,6 +2,11 @@ extends ../layout
 
 include ../components/buttons
 
+block content
+    div.between-header-footer
+        div.container-fluid
+            block between-header-footer
+
 block header
     div.navbar.navbar-fixed-top.header-nav.header-nav--website-header
         div.container-fluid.header-nav__content

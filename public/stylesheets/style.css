@@ -9,6 +9,9 @@
 .header-nav .header-nav__content, .footer-nav .footer-nav__content {
   flex: 1; }
 
+.header-padding {
+  padding-top: 1em; }
+
 .header-nav .header-nav__content .back-button {
   margin-right: 1em; }
 
@@ -23,6 +26,14 @@
   background-color: #3f8acd;
   color: #fff; }
 
+.between-header-footer {
+  bottom: 50px;
+  position: absolute;
+  top: 50px;
+  width: 100%; }
+  .between-header-footer > .container-fluid {
+    height: 100%; }
+
 @media (min-width: 768px) {
   .landscape-or-portrait .landscape-or-portrait__portrait {
     display: none; } }
@@ -33,7 +44,8 @@
 
 .landscape-responsive {
   margin-left: -15px;
-  margin-right: -15px; }
+  margin-right: -15px;
+  height: 100%; }
   .landscape-responsive:before, .landscape-responsive:after {
     content: " ";
     display: table; }
@@ -43,22 +55,33 @@
     position: relative;
     min-height: 1px;
     padding-left: 15px;
-    padding-right: 15px; }
-    @media (max-width: 767px) {
-      .landscape-responsive .landscape-responsive__nav {
-        display: none; } }
+    padding-right: 15px;
+    height: 100%; }
     @media (min-width: 768px) {
       .landscape-responsive .landscape-responsive__nav {
         float: left;
         width: 33.33333333%; } }
+    @media (max-width: 767px) {
+      .landscape-responsive .landscape-responsive__nav {
+        display: none; } }
   .landscape-responsive .landscape-responsive__content {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
-    padding-right: 15px; }
+    padding-right: 15px;
+    height: 100%; }
     @media (min-width: 768px) {
       .landscape-responsive .landscape-responsive__content {
         float: left;
         width: 66.66666667%; } }
   .landscape-responsive.landscape-responsive--border-separated .landscape-responsive__nav {
     border-right: 1px solid #eeeeee; }
+  .landscape-responsive.landscape-responsive--header-padding .landscape-responsive__nav,
+  .landscape-responsive.landscape-responsive--header-padding .landscape-responsive__content {
+    padding-top: 1em; }
+  .landscape-responsive.landscape-responsive--scrollable .landscape-responsive__nav,
+  .landscape-responsive.landscape-responsive--scrollable .landscape-responsive__content {
+    overflow-y: auto; }
+
+.website-item {
+  margin-bottom: 1em; }

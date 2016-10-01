@@ -1,7 +1,12 @@
 extends layout
 
-block content
-    div.row
+include ../components/headers
+
+block website-header
+    +listHeader('Websites')
+
+block between-header-footer
+    div.row.header-padding
         div.col-sm-12
             include components/websites_list
 

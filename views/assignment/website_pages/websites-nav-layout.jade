@@ -1,7 +1,8 @@
 extends layout
 
-block content
-    div.landscape-responsive.landscape-responsive--border-separated
+block between-header-footer
+    div(class="landscape-responsive landscape-responsive--border-separated " +
+    "landscape-responsive--scrollable landscape-responsive--header-padding")
         div.landscape-responsive__nav
             include components/websites_list
         div.landscape-responsive__content

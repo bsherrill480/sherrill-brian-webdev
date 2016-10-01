@@ -6,5 +6,12 @@ block website-header
     +leftListRightContent('Websites', 'New Website')
 
 block website-content
-    p NEW WEBSITE
+    form
+        div.form-group
+            label Name
+            input.form-control(type="text" placeholder="Name")
+        div.form-group
+            label Description
+            textarea.form-control(placeholder="Description", rows=5)
+
 

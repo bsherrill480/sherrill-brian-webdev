@@ -1,5 +1,18 @@
 extends websites-nav-layout
 
+include ../components/headers
+
+block website-header
+    +leftListRightContent('Websites', 'Edit Website')
+
 block website-content
-    p EDIT WEBSITE
+    form
+        div.form-group
+            label Name
+            input.form-control(type="text" placeholder="Name" value="Blogger")
+        div.form-group
+            label Description
+            textarea.form-control(placeholder="Description", rows=5) Blogger is a blog-publishing...
+        button.btn.btn-danger.btn-block Delete
+
 

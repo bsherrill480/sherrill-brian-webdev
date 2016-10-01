@@ -12,6 +12,9 @@ $website-header-footer-font-color: #fff;
 $bootstrap-col-total: 12;
 $landscape-responsive-nav-size: 4;
 $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive-nav-size;
+$my-navbar-height: $navbar-height;
+$header-padding: 1em;
+// general
 
 // using of BEM, see http://getbem.com/introduction/ if unfamiliar
 
@@ -28,12 +31,16 @@ $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: $font-size-h4;
   font-weight: bold;
-  height: $navbar-height;
+  height: $my-navbar-height;
 }
 
 // place holder class to contain common stylings between header and footer content
 %header-footer-nav__content {
   flex: 1; // fill container
+}
+
+.header-padding {
+  padding-top: $header-padding;
 }
 
 // Header nav
@@ -74,6 +81,17 @@ $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive
   }
 }
 
+.between-header-footer {
+  bottom: $my-navbar-height;
+  position: absolute;
+  top: $my-navbar-height;
+  width: 100%;
+
+  >.container-fluid {
+    height: 100%;
+  }
+}
+
 // Display landscape-or-portrait__landscape if the screen is at least landscape width,
 // else display landscape-or-portrait__portrait
 // Should I change "or" to "xor"?
@@ -96,15 +114,22 @@ $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive
 .landscape-responsive {
   @include make-row;
 
+  height: 100%;
+
   .landscape-responsive__nav {
+    @include make-sm-column($landscape-responsive-nav-size, $grid-gutter-width);
+
+    height: 100%;
+
     @media (max-width: $screen-xs-max) {
       display: none;
     }
-    @include make-sm-column($landscape-responsive-nav-size, $grid-gutter-width)
   }
 
   .landscape-responsive__content {
-    @include make-sm-column($landscape-responsive-content-size, $grid-gutter-width)
+    @include make-sm-column($landscape-responsive-content-size, $grid-gutter-width);
+
+    height: 100%;
   }
 
   // state modifier, add border to right of nav
@@ -113,5 +138,23 @@ $landscape-responsive-content-size: $bootstrap-col-total - $landscape-responsive
       border-right: 1px solid $page-header-border-color;
     }
   }
+
+  &.landscape-responsive--header-padding {
+    .landscape-responsive__nav,
+    .landscape-responsive__content {
+      padding-top: $header-padding;
+    }
+  }
+
+  &.landscape-responsive--scrollable {
+    .landscape-responsive__nav,
+    .landscape-responsive__content {
+      overflow-y: auto;
+    }
+  }
+}
+
+.website-item {
+  margin-bottom: 1em;
 }
 
