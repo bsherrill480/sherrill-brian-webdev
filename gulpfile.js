@@ -20,13 +20,15 @@ gulp.task('sass', ['sass-lint'], function () {
   return gulp.src(SASS_FILES)
     .pipe(sass({
         precision: 8, //bootstrap requires precision 8
+        // could this in (and tinker with it) so that i don't have to go to node modules in SASS
         // loadPath: [
         //     'node_modules/bootstrap-sass/stylesheets'
         // ]
     }).on('error', sass.logError))
     .pipe(gulp.dest('./public/stylesheets'));
 });
- 
+
+// Doesn't seem to work
 gulp.task('sass:watch', function () {
   gulp.watch(SASS_FILES, ['sass']);
 });
