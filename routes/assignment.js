@@ -38,5 +38,26 @@ router.get('/page-new.html', function (req, res, next) {
 });
 
 
+// WIDGET PAGES
+
+router.get('/widget-list.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_list');
+});
+
+router.get('/widget-chooser.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_chooser');
+});
+
+router.get('/widget-heading.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_heading');
+});
+
+router.get('/widget-image.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_image');
+});
+
+router.get('/widget-youtube.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_youtube');
+});
 
 module.exports = router;

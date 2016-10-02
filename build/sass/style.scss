@@ -13,6 +13,12 @@ $page-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wire
 $page-header-font-color: inherit;
 $page-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
 
+
+// widget pages, same as page pages in value, but not semantically so I'm keeping them separate
+$widget-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wireframe
+$widget-header-font-color: inherit;
+$widget-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
+
 // for landscape-responsive class
 $bootstrap-col-total: 12;
 $landscape-responsive-nav-size: 4;
@@ -71,6 +77,13 @@ $header-padding: 1em;
     @include header-footer-display($page-header-footer-bg-color,
       $page-header-font-color);
   }
+
+
+  // state modifier for widget widgets
+  &.header-nav--widget-header {
+    @include header-footer-display($widget-header-footer-bg-color,
+      $widget-header-font-color);
+  }
 }
 
 // Footer nav
@@ -95,6 +108,12 @@ $header-padding: 1em;
   &.footer-nav--page-footer {
     @include header-footer-display($page-header-footer-bg-color,
       $page-footer-font-color);
+  }
+
+  // state modifier for widget pages
+  &.footer-nav--widget-footer {
+    @include header-footer-display($widget-header-footer-bg-color,
+      $widget-footer-font-color);
   }
 }
 

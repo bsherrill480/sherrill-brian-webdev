@@ -1,0 +1,14 @@
+extends layout
+
+include ../components/headers
+
+block widget-header
+    +listHeader('Widgets')
+
+block between-header-footer
+    div.row.header-padding
+        div.col-sm-12
+            include components/widget_list
+
+block widget-footer
+    include components/user_icon_footer

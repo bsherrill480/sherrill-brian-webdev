@@ -23,6 +23,10 @@
   background-color: #f7f7f7;
   color: inherit; }
 
+.header-nav.header-nav--widget-header {
+  background-color: #f7f7f7;
+  color: inherit; }
+
 .footer-nav .footer-nav__content .back-button {
   margin-right: 1em; }
 
@@ -31,6 +35,10 @@
   color: #fff; }
 
 .footer-nav.footer-nav--page-footer {
+  background-color: #f7f7f7;
+  color: #428dc9; }
+
+.footer-nav.footer-nav--widget-footer {
   background-color: #f7f7f7;
   color: #428dc9; }
 

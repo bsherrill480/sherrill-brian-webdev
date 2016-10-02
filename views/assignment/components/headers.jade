@@ -1,5 +1,13 @@
 include buttons
 
+mixin backHeader(contentName)
+    div.row
+        div.col-sm-12
+            span
+                +backButton
+            span #{contentName}
+
+
 mixin listHeader(listName)
     div.row
         div.col-sm-12
@@ -18,7 +26,7 @@ mixin completedHeader(listName)
             div.pull-right
                 +checkButton
 
-mixin leftListRightContent(listName, contentName)
+mixin leftListRightCompleted(listName, contentName)
     div.landscape-or-portrait
         div.landscape-or-portrait__landscape
             div.landscape-responsive
@@ -31,3 +39,15 @@ mixin leftListRightContent(listName, contentName)
 
         div.landscape-or-portrait__portrait
             +completedHeader(contentName)
+
+mixin leftListRightBack(listName, contentName)
+    div.landscape-or-portrait
+        div.landscape-or-portrait__landscape
+            div.landscape-responsive
+                div.landscape-responsive__nav
+                    +listHeader(listName)
+                div.landscape-responsive__content
+                    span #{contentName}
+
+        div.landscape-or-portrait__portrait
+            +backHeader(contentName)

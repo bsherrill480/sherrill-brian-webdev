@@ -1,0 +1,26 @@
+include ../components/lists
+
+extends widget-nav-layout
+
+include ../components/headers
+
+block widget-header
+    +leftListRightCompleted('Widgets', 'Edit Widget')
+
+block widget-content
+    div.row.header-padding
+        div.col-sm-12
+            form
+                div.form-group
+                    label Name
+                    input.form-control(type="text")
+                div.form-group
+                    label Text
+                    input.form-control(type="text" value="US Senate Reaches Compromise...")
+                div.form-group
+                    label Size
+                    input.form-control(type="number" value="3")
+                button.btn.btn-danger.btn-block Delete
+
+block widget-footer
+    include components/user_icon_footer
