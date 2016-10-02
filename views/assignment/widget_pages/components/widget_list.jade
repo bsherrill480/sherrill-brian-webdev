@@ -1,15 +1,17 @@
 include ../../components/lists
+include widget_element_options
+//- Going to use
 
-p WIDGET LIST STUFF
-//+listItem("Header")
-//+listItem("Label")
-//+listItem("HTML")
-//+listItem("Text Input")
-//+listItem("Link")
-//+listItem("Button")
-//+listItem("Image")
-//+listItem("YouTube")
-//+listItem("Data Table")
-//+listItem("Repeater")
+div.widget-item.widget-item--header
+    +widget_options
+    h1 GIZMODO
+
+div.widget-item.widget-item--label
+    +widget_options
+    label US Senate Reaches Compromise on Emergency Zika Funding
+
+
+
+
 
 
