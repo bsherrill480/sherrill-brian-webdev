@@ -12,14 +12,18 @@ $website-header-footer-link-color: $website-header-footer-font-color;
 // page pages, not all pages
 $page-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wireframe
 $page-header-font-color: inherit;
-$page-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
+$page-footer-font-color: inherit; // obtained from sampling wireframe
+$page-header-link-color: inherit;
+$page-footer-link-color: rgb(66, 141, 201);
 
 
 // widget pages, same as page pages in value, but not semantically so I'm keeping them separate
 $widget-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wireframe
 $widget-header-font-color: inherit;
-$widget-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
+$widget-footer-font-color: inherit; // obtained from sampling wireframe
 $widget-item-element-options-bg-color: #fff;
+$widget-header-link-color: inherit;
+$widget-footer-link-color: rgb(66, 141, 201);
 
 // for landscape-responsive class
 $bootstrap-col-total: 12;
@@ -82,14 +86,14 @@ $header-padding: 1em;
   // state modifier for page pages
   &.header-nav--page-header {
     @include header-footer-display($page-header-footer-bg-color,
-      $page-header-font-color, $page-header-font-color);
+      $page-header-font-color, $page-header-link-color);
   }
 
 
   // state modifier for widget widgets
   &.header-nav--widget-header {
     @include header-footer-display($widget-header-footer-bg-color,
-      $widget-header-font-color, $widget-header-font-color);
+      $widget-header-font-color, $widget-header-link-color);
   }
 }
 
@@ -114,13 +118,13 @@ $header-padding: 1em;
   // state modifier for page pages
   &.footer-nav--page-footer {
     @include header-footer-display($page-header-footer-bg-color,
-      $page-footer-font-color, $page-footer-font-color);
+      $page-footer-font-color, $page-footer-link-color);
   }
 
   // state modifier for widget pages
   &.footer-nav--widget-footer {
     @include header-footer-display($widget-header-footer-bg-color,
-      $widget-footer-font-color, $widget-footer-font-color);
+      $widget-footer-font-color, $widget-footer-link-color);
   }
 }
 

@@ -45,13 +45,13 @@
 
 .footer-nav.footer-nav--page-footer {
   background-color: #f7f7f7;
-  color: #428dc9; }
+  color: inherit; }
   .footer-nav.footer-nav--page-footer a {
     color: #428dc9; }
 
 .footer-nav.footer-nav--widget-footer {
   background-color: #f7f7f7;
-  color: #428dc9; }
+  color: inherit; }
   .footer-nav.footer-nav--widget-footer a {
     color: #428dc9; }
 
