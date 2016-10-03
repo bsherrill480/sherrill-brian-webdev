@@ -18,6 +18,7 @@ $page-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
 $widget-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wireframe
 $widget-header-font-color: inherit;
 $widget-footer-font-color: rgb(66, 141, 201); // obtained from sampling wireframe
+$widget-item-element-options-bg-color: #fff;
 
 // for landscape-responsive class
 $bootstrap-col-total: 12;
@@ -51,6 +52,7 @@ $header-padding: 1em;
 }
 
 .header-padding {
+  padding-bottom: $my-navbar-height;
   padding-top: $header-padding;
 }
 
@@ -147,6 +149,10 @@ $header-padding: 1em;
 
 // Display nav and content if the screen is at least landscape width,
 // else just display content
+// .landscape-responsive has bootstrap's row behavior, and it's elements are columns.
+// Dev note: Using this instead of just the bootstrap classes because:
+//    - 1 change to CSS will change all occurances
+//    - allows for easier understand BEM
 .landscape-responsive {
   @include make-row;
 
@@ -191,10 +197,16 @@ $header-padding: 1em;
 }
 
 .widget-item {
-  .widget-item__widget-element {
-    .widget-item__widget-element__widget_options {
+  position: relative;
 
-    }
+  .widget-item__element-options {
+    background: $widget-item-element-options-bg-color;
+    border-bottom-left-radius: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 
