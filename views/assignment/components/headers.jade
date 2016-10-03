@@ -1,9 +1,9 @@
 include buttons
 
-mixin backHeader(contentName)
+mixin backHeader(contentName, backHref)
     div.row
         div.col-sm-12
-            span
+            a(href="#{backHref}")
                 +backButton
             span #{contentName}
 
@@ -51,14 +51,14 @@ mixin leftListRightCompleted(listName, contentName, backHref, newHref, completed
         div.landscape-or-portrait__portrait
             +backCompletedHeader(contentName)
 
-mixin leftListRightBack(listName, contentName)
+mixin leftListRightBack(listName, contentName, backHref, newHref)
     div.landscape-or-portrait
         div.landscape-or-portrait__landscape
             div.landscape-responsive
                 div.landscape-responsive__nav
-                    +backListHeader(listName)
+                    +backListHeader(listName, backHref, newHref)
                 div.landscape-responsive__content
                     span #{contentName}
 
         div.landscape-or-portrait__portrait
-            +backHeader(contentName)
+            +backHeader(contentName, backHref)

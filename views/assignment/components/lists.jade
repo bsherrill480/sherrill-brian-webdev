@@ -1,6 +1,6 @@
-mixin listItem(name)
+mixin listItem(name, itemHref)
     div.list-item
-        a(href="#") #{name}
+        a(href="#{itemHref}") #{name}
 
 mixin editableListItem(name, itemHref, editHref)
     div.list-item

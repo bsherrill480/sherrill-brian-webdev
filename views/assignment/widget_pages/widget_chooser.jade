@@ -5,21 +5,22 @@ extends widget-nav-layout
 include ../components/headers
 
 block widget-header
-    +leftListRightBack('Widgets', 'Choose Widget')
+    +leftListRightBack('Widgets', 'Choose Widget', '/assignment/widget-list.html',
+        '/assignment/widget-chooser.html')
 
 block widget-content
     div.row.header-padding
         div.col-sm-12
-            +listItem("Header")
-            +listItem("Label")
-            +listItem("HTML")
-            +listItem("Text Input")
-            +listItem("Link")
-            +listItem("Button")
-            +listItem("Image")
-            +listItem("YouTube")
-            +listItem("Data Table")
-            +listItem("Repeater")
+            +listItem("Header", "/assignment/widget-heading.html")
+            +listItem("Label", "#")
+            +listItem("HTML", "#")
+            +listItem("Text Input", "#")
+            +listItem("Link", "#")
+            +listItem("Button", "#")
+            +listItem("Image", '/assignment/widget-image.html')
+            +listItem("YouTube", '/assignment/widget-youtube.html')
+            +listItem("Data Table", "#")
+            +listItem("Repeater", "#")
 
 block widget-footer
     include components/user_icon_footer

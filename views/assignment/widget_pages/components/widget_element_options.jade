@@ -1,7 +1,7 @@
 include ../../components/buttons
-mixin widget_options
+mixin widget_options(cogHref)
     div.widget-item__element-options
-        a(href="#")
+        a(href="#{cogHref}")
             +cogButton
         span &nbsp;
         +hamburgerButton
