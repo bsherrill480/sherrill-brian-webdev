@@ -109,7 +109,8 @@
     padding-left: 5px;
     position: absolute;
     right: 0;
-    top: 0; }
+    top: 0;
+    z-index: 2; }
 
 .list-item {
   margin-bottom: 1em; }
