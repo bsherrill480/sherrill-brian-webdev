@@ -32,12 +32,12 @@ $header-padding: 1em;
 // using of BEM, see http://getbem.com/introduction/ if unfamiliar
 
 // to style the color and background of the header and footer
-@mixin header-footer-display($bg-color, $font-color) {
+@mixin header-footer-display($bg-color, $font-color, $link-color) {
   background-color: $bg-color;
   color: $font-color;
 
   a {
-    color: $website-header-footer-link-color;
+    color: $link-color;
   }
 }
 
@@ -76,20 +76,20 @@ $header-padding: 1em;
   // state modifier for website pages
   &.header-nav--website-header {
     @include header-footer-display($website-header-footer-bg-color,
-      $website-header-footer-font-color);
+      $website-header-footer-font-color, $website-header-footer-link-color);
   }
 
   // state modifier for page pages
   &.header-nav--page-header {
     @include header-footer-display($page-header-footer-bg-color,
-      $page-header-font-color);
+      $page-header-font-color, $page-header-font-color);
   }
 
 
   // state modifier for widget widgets
   &.header-nav--widget-header {
     @include header-footer-display($widget-header-footer-bg-color,
-      $widget-header-font-color);
+      $widget-header-font-color, $widget-header-font-color);
   }
 }
 
@@ -108,19 +108,19 @@ $header-padding: 1em;
   // state modifier for website pages
   &.footer-nav--website-footer {
     @include header-footer-display($website-header-footer-bg-color,
-      $website-header-footer-font-color);
+      $website-header-footer-font-color, $website-header-footer-link-color);
   }
 
   // state modifier for page pages
   &.footer-nav--page-footer {
     @include header-footer-display($page-header-footer-bg-color,
-      $page-footer-font-color);
+      $page-footer-font-color, $page-footer-font-color);
   }
 
   // state modifier for widget pages
   &.footer-nav--widget-footer {
     @include header-footer-display($widget-header-footer-bg-color,
-      $widget-footer-font-color);
+      $widget-footer-font-color, $widget-footer-font-color);
   }
 }
 

@@ -26,13 +26,13 @@
   background-color: #f7f7f7;
   color: inherit; }
   .header-nav.header-nav--page-header a {
-    color: #fff; }
+    color: inherit; }
 
 .header-nav.header-nav--widget-header {
   background-color: #f7f7f7;
   color: inherit; }
   .header-nav.header-nav--widget-header a {
-    color: #fff; }
+    color: inherit; }
 
 .footer-nav .footer-nav__content .back-button {
   margin-right: 1em; }
@@ -47,13 +47,13 @@
   background-color: #f7f7f7;
   color: #428dc9; }
   .footer-nav.footer-nav--page-footer a {
-    color: #fff; }
+    color: #428dc9; }
 
 .footer-nav.footer-nav--widget-footer {
   background-color: #f7f7f7;
   color: #428dc9; }
   .footer-nav.footer-nav--widget-footer a {
-    color: #fff; }
+    color: #428dc9; }
 
 .between-header-footer {
   bottom: 50px;

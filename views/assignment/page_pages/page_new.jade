@@ -3,7 +3,8 @@ extends page-nav-layout
 include ../components/headers
 
 block page-header
-    +leftListRightCompleted('Pages', 'New Page')
+    +leftListRightCompleted('Pages', 'New Page', '/assignment/page-list.html',
+        '/assignment/page-new.html', '/assignment/page-list.html')
 
 block page-content
     form

@@ -3,7 +3,8 @@ extends page-nav-layout
 include ../components/headers
 
 block page-header
-    +leftListRightCompleted('Pages', 'Edit Page')
+    +leftListRightCompleted('Pages', 'Edit Page', '/assignment/page-list.html',
+    '/assignment/page-new.html', '/assignment/page-list.html')
 
 block page-content
     form
@@ -13,6 +14,6 @@ block page-content
         div.form-group
             label Title
             input.form-control(type="text" placeholder="Page Title")
-        button.btn.btn-danger.btn-block Delete
+        a.btn.btn-danger.btn-block(href="/assignment/page-list.html") Delete
 
 
