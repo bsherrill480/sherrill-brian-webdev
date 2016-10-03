@@ -2,9 +2,9 @@ mixin listItem(name)
     div.list-item
         a(href="#") #{name}
 
-mixin editableListItem(name)
+mixin editableListItem(name, itemHref, editHref)
     div.list-item
-        a(href="#") #{name}
+        a(href="#{itemHref}") #{name}
         div.pull-right
-            a(href="#")
+            a(href="#{editHref}")
                 +cogButton

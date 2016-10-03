@@ -8,14 +8,15 @@ mixin backHeader(contentName)
             span #{contentName}
 
 
-mixin listHeader(listName)
+mixin backListHeader(listName, backHref, newHref)
     div.row
         div.col-sm-12
-            span
+            a(href="#{backHref}")
                 +backButton
             span #{listName}
             div.pull-right
-                +plusButton
+                a(href="#{newHref}")
+                    +plusButton
 
 mixin completedHeader(listName, href)
     div.row
@@ -35,16 +36,17 @@ mixin backCompletedHeader(listName, href)
                 a(href="#{href}")
                     +checkButton
 
-mixin leftListRightCompleted(listName, contentName)
+mixin leftListRightCompleted(listName, contentName, backHref, newHref, completedHref)
     div.landscape-or-portrait
         div.landscape-or-portrait__landscape
             div.landscape-responsive
                 div.landscape-responsive__nav
-                    +listHeader(listName)
+                    +backListHeader(listName, backHref, newHref)
                 div.landscape-responsive__content
                     span #{contentName}
                     div.pull-right
-                        +checkButton
+                        a(href="#{completedHref}")
+                            +checkButton
 
         div.landscape-or-portrait__portrait
             +backCompletedHeader(contentName)
@@ -54,7 +56,7 @@ mixin leftListRightBack(listName, contentName)
         div.landscape-or-portrait__landscape
             div.landscape-responsive
                 div.landscape-responsive__nav
-                    +listHeader(listName)
+                    +backListHeader(listName)
                 div.landscape-responsive__content
                     span #{contentName}
 

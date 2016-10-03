@@ -3,7 +3,8 @@ extends websites-nav-layout
 include ../components/headers
 
 block website-header
-    +leftListRightCompleted('Websites', 'New Website')
+    +leftListRightCompleted('Websites', 'New Website', '/assignment/website-list.html',
+        '/assignment/website-new.html', '/assignment/website-list.html')
 
 block website-content
     form

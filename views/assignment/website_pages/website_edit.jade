@@ -3,7 +3,8 @@ extends websites-nav-layout
 include ../components/headers
 
 block website-header
-    +leftListRightCompleted('Websites', 'Edit Website')
+    +leftListRightCompleted('Websites', 'Edit Website', '/assignment/website-list.html',
+    '/assignment/website-new.html', '/assignment/website-list.html')
 
 block website-content
     form
@@ -13,6 +14,6 @@ block website-content
         div.form-group
             label Description
             textarea.form-control(placeholder="Description", rows=5) Blogger is a blog-publishing...
-        button.btn.btn-danger.btn-block Delete
+        a.btn.btn-danger.btn-block(href='/assignment/website-list.html') Delete
 
 
