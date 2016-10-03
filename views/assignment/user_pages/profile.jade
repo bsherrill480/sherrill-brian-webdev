@@ -1,0 +1,39 @@
+extends ../layout
+
+include ../components/buttons
+include ../components/headers
+
+block content
+    div.between-header-footer
+        div.container-fluid
+            div.row.header-padding
+                div.col-sm-12
+                    form
+                        div.form-group
+                            label Username
+                            input.form-control(type="text" value="jannuzi")
+                        div.form-group
+                            label Email
+                            input.form-control(type="email" value="januzzi@gmail.com")
+                        div.form-group
+                            label Fist Name
+                            input.form-control(type="text" value='Jose')
+                        div.form-group
+                            label Last Name
+                            input.form-control(type="text" value='Annuziato')
+                        a.btn.btn-primary.btn-block(href="/assignment/website-list.html") Websites
+                        a.btn.btn-danger.btn-block(href="/assignment/login.html") Logout
+//- Using website-header and footer styling until it's more clear what I need to do.
+//- i.e. should I reanme it to blue-head and blue-footer or should profile get its own styling.
+block header
+    div.navbar.navbar-fixed-top.header-nav.header-nav--website-header
+        div.container-fluid.header-nav__content
+            +completedHeader('Profile', '/assignment/profile.html')
+
+block footer
+    div.navbar.navbar-fixed-bottom.footer-nav.footer-nav--website-footer
+        div.container-fluid.footer-nav__content
+            div.row
+                div.col-sm-12.text-right
+                    +userButton
+

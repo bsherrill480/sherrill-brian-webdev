@@ -7,6 +7,7 @@
 // website pages, not whole website
 $website-header-footer-bg-color:  rgb(63, 138, 205); // obtained from sampling wireframe
 $website-header-footer-font-color: #fff;
+$website-header-footer-link-color: $website-header-footer-font-color;
 
 // page pages, not all pages
 $page-header-footer-bg-color: rgb(247, 247, 247); // obtained from sampling wireframe
@@ -34,6 +35,10 @@ $header-padding: 1em;
 @mixin header-footer-display($bg-color, $font-color) {
   background-color: $bg-color;
   color: $font-color;
+
+  a {
+    color: $website-header-footer-link-color;
+  }
 }
 
 // place holder class to contain common stylings between header and footer

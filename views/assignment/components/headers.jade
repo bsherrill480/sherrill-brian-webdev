@@ -17,14 +17,23 @@ mixin listHeader(listName)
             div.pull-right
                 +plusButton
 
-mixin completedHeader(listName)
+mixin completedHeader(listName, href)
+    div.row
+        div.col-sm-12
+            span #{listName}
+            div.pull-right
+                a(href="#{href}")
+                    +checkButton
+
+mixin backCompletedHeader(listName, href)
     div.row
         div.col-sm-12
             span
                 +backButton
             span #{listName}
             div.pull-right
-                +checkButton
+                a(href="#{href}")
+                    +checkButton
 
 mixin leftListRightCompleted(listName, contentName)
     div.landscape-or-portrait
@@ -38,7 +47,7 @@ mixin leftListRightCompleted(listName, contentName)
                         +checkButton
 
         div.landscape-or-portrait__portrait
-            +completedHeader(contentName)
+            +backCompletedHeader(contentName)
 
 mixin leftListRightBack(listName, contentName)
     div.landscape-or-portrait

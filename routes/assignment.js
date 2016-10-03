@@ -9,6 +9,10 @@ router.get('/register.html', function (req, res, next) {
     res.render('assignment/user_pages/register');
 });
 
+router.get('/profile.html', function (req, res, next) {
+    res.render('assignment/user_pages/profile');
+});
+
 // WEBSITE PAGES
 
 router.get('/website-list.html', function (req, res, next) {
