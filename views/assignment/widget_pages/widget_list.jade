@@ -11,4 +11,10 @@ block between-header-footer
             include components/widget_list
 
 block widget-footer
-    include components/user_icon_footer
+    div
+        div.pull-left
+            include components/widget_list_footer_stuff
+
+        div.pull-right
+            a(href="/assignment/profile.html")
+                +userButton
