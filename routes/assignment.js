@@ -1,67 +1,76 @@
 const express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    userFolder = 'user',
+    websiteFolder = 'website',
+    pageFolder = 'page',
+    widgetFolder = 'widget';
 
-router.get('/login.html', function (req, res, next) {
+
+router.get(`/${userFolder}/login.view.client.html`, function (req, res, next) {
     res.render('assignment/user_pages/login');
 });
 
-router.get('/register.html', function (req, res, next) {
+router.get(`/${userFolder}/register.view.client.html`, function (req, res, next) {
     res.render('assignment/user_pages/register');
 });
 
-router.get('/profile.html', function (req, res, next) {
+router.get(`/${userFolder}/profile.view.client.html`, function (req, res, next) {
     res.render('assignment/user_pages/profile');
 });
 
 // WEBSITE PAGES
 
-router.get('/website-list.html', function (req, res, next) {
+router.get(`/${websiteFolder}/website-list.view.client.html`, function (req, res, next) {
     res.render('assignment/website_pages/website_list');
 });
 
-router.get('/website-edit.html', function (req, res, next) {
+router.get(`/${websiteFolder}/website-edit.view.client.html`, function (req, res, next) {
     res.render('assignment/website_pages/website_edit');
 });
 
-router.get('/website-new.html', function (req, res, next) {
+router.get(`/${websiteFolder}/website-new.view.client.html`, function (req, res, next) {
     res.render('assignment/website_pages/website_new');
 });
 
 // PAGE PAGES
 
-router.get('/page-list.html', function (req, res, next) {
+router.get(`/${pageFolder}/page-list.view.client.html`, function (req, res, next) {
     res.render('assignment/page_pages/page_list');
 });
 
-router.get('/page-edit.html', function (req, res, next) {
+router.get(`/${pageFolder}/page-edit.view.client.html`, function (req, res, next) {
     res.render('assignment/page_pages/page_edit');
 });
 
-router.get('/page-new.html', function (req, res, next) {
+router.get(`/${pageFolder}/page-new.view.client.html`, function (req, res, next) {
     res.render('assignment/page_pages/page_new');
 });
 
 
 // WIDGET PAGES
 
-router.get('/widget-list.html', function (req, res, next) {
+router.get(`/${widgetFolder}/widget-list.view.client.html`, function (req, res, next) {
     res.render('assignment/widget_pages/widget_list');
 });
 
-router.get('/widget-chooser.html', function (req, res, next) {
+router.get(`/${widgetFolder}/widget-chooser.view.client.html`, function (req, res, next) {
     res.render('assignment/widget_pages/widget_chooser');
 });
 
-router.get('/widget-heading.html', function (req, res, next) {
+router.get(`/${widgetFolder}/widget-heading.view.client.html`, function (req, res, next) {
     res.render('assignment/widget_pages/widget_heading');
 });
 
-router.get('/widget-image.html', function (req, res, next) {
+router.get(`/${widgetFolder}/widget-image.view.client.html`, function (req, res, next) {
     res.render('assignment/widget_pages/widget_image');
 });
 
-router.get('/widget-youtube.html', function (req, res, next) {
+router.get(`/${widgetFolder}/widget-youtube.view.client.html`, function (req, res, next) {
     res.render('assignment/widget_pages/widget_youtube');
+});
+
+router.get(`/`, function (req, res, next) {
+    res.render('assignment/index');
 });
 
 module.exports = router;
