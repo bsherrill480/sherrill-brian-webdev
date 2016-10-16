@@ -36,18 +36,31 @@
 
             findUserByUsername: function (username) {
                 return _.find(users, function (user) {
-                    return username == user.username;
+                    return username === user.username;
                 });
             },
 
             findUserByCredentials: function (username, password) {
                 return _.find(users, function (user) {
-                    return username == user.username && password == user.password;
+                    return username === user.username && password === user.password;
                 });
             },
 
-            findUserByCredentials: function () {
-                
+            // takes passed user and keep it for internal use.
+            updateUser: function (userId, user) {
+                var userIndex = _.findIndex(users, function (loopedUser) {
+                    return loopedUser._id === userId;
+                });
+                if(userIndex !== -1) {
+                    user._id = userId;
+                    users[userIndex] = user;
+                }
+            },
+
+            deleteUser: function (userId) {
+                _.remove(users, function (user) {
+                    return user._id === userId;
+                })
             }
         };
         return api;
