@@ -11,11 +11,11 @@ mixin backHeader(contentName, backHref)
 mixin backListHeader(listName, backHref, newHref)
     div.row
         div.col-sm-12
-            a(href="#{backHref}")
+            a(ng-href="#{backHref}")
                 +backButton
             span #{listName}
             div.pull-right
-                a(href="#{newHref}")
+                a(ng-href="#{newHref}")
                     +plusButton
 
 mixin completedHeader(listName, href)
@@ -23,7 +23,7 @@ mixin completedHeader(listName, href)
         div.col-sm-12
             span #{listName}
             div.pull-right
-                a(href="#{href}")
+                a(ng-href="#{href}")
                     +checkButton
 
 mixin backCompletedHeader(listName, href)

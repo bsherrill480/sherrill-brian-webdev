@@ -1,4 +1,4 @@
-extends ../../layout
+extends ../layout
 
 block content
     div.row
@@ -6,8 +6,11 @@ block content
             h1 Login
             form
                 div.form-group
-                    input.form-control(type="email" placeholder="username")
+                    input.form-control(type="text"
+                        placeholder="username" ng-model="model.user.username")
                 div.form-group
-                    input.form-control(type="password" placeholder="password")
-                a.btn.btn-primary.btn-block(href="/assignment/profile.html") Login
-                a.btn.btn-success.btn-block(href="/assignment/register.html") Register
+                    input.form-control(type="password" placeholder="password"
+                        ng-model="model.user.password" my-enter="model.login(model.user)")
+                a.btn.btn-primary.btn-block(ng-click="model.login(model.user)") Login
+                a.btn.btn-success.btn-block(href="#/register") Register
+

@@ -14,9 +14,15 @@ html
       type='javascript')
   body(ng-app="WebAppMaker")
     div(ng-view)
-        p main_index
+        p Loading...
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js')
     script(src='/assignment/app.js')
     script(src='/assignment/config.js')
+    script(src='/assignment/services/page.service.client.js')
+    script(src='/assignment/services/user.service.client.js')
+    script(src='/assignment/services/website.service.client.js')
+    script(src='/assignment/services/widget.service.client.js')
+    script(src='/assignment/views/user/user.controller.client.js')
+    script(src='/assignment/views/website/website.controller.client.js')

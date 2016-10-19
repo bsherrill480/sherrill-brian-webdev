@@ -1,9 +1,12 @@
 include ../../components/lists
+mixin website_list(controllerModelName)
+    div(ng-repeat="website in " + controllerModelName + ".websites")
+        +editableListItem("{{website.name}}", "#/user/{{model.userId}}/website/", "#")
 
-+editableListItem("Address Book App", "/assignment/page-list.html", "/assignment/website-edit.html")
-+editableListItem("Blogger", "/assignment/page-list.html", "/assignment/website-edit.html")
-+editableListItem("Bloggerapp", "/assignment/page-list.html", "/assignment/website-edit.html")
-+editableListItem("Script Testing App", "/assignment/page-list.html", "/assignment/website-edit" +
-    ".html")
+//+editableListItem("Address Book App", "/assignment/page-list.html", "/assignment/website-edit.html")
+//+editableListItem("Blogger", "/assignment/page-list.html", "/assignment/website-edit.html")
+//+editableListItem("Bloggerapp", "/assignment/page-list.html", "/assignment/website-edit.html")
+//+editableListItem("Script Testing App", "/assignment/page-list.html", "/assignment/website-edit" +
+//    ".html")
 
 

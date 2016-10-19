@@ -1,12 +1,13 @@
 extends layout
 
 include ../components/headers
+include components/websites_list
 
 block website-header
-    +backListHeader('Websites', '/assignment/profile.html', '/assignment/website-new.html')
+    +backListHeader('Websites', '#/user/{{model.userId}}', '#/user/{{model.userId}}/website/new')
 
 block between-header-footer
     div.row.header-padding
         div.col-sm-12
-            include components/websites_list
+            +website_list("model")
 

@@ -57,5 +57,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.locals.doubleLCurly = '{{';
+app.locals.doubleRCurly = '}}';
+// app.locals.wrapDoubleCurly = function (text) {
+//   return '{{' + text + '}}';
+// };
 
 module.exports = app;

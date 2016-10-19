@@ -11,30 +11,31 @@ block content
                     form
                         div.form-group
                             label Username
-                            input.form-control(type="text" value="jannuzi")
+                            input.form-control(type="text" ng-model="model.user.username")
                         div.form-group
                             label Email
-                            input.form-control(type="email" value="januzzi@gmail.com")
+                            input.form-control(type="email" ng-model="model.user.email")
                         div.form-group
                             label Fist Name
-                            input.form-control(type="text" value='Jose')
+                            input.form-control(type="text" ng-model="model.user.firstName")
                         div.form-group
                             label Last Name
-                            input.form-control(type="text" value='Annuziato')
-                        a.btn.btn-primary.btn-block(href="/assignment/website-list.html") Websites
-                        a.btn.btn-danger.btn-block(href="/assignment/login.html") Logout
+                            input.form-control(type="text" ng-model="model.user.lastName")
+                        a.btn.btn-primary.btn-block(
+                        ng-href="#/user/{{model.userId}}/website/") Websites
+                        a.btn.btn-danger.btn-block(href="#/login") Logout
 //- Using website-header and footer styling until it's more clear what I need to do.
-//- i.e. should I reanme it to blue-head and blue-footer or should profile get its own styling.
+//- i.e. should I rename it to blue-head and blue-footer or should profile get its own styling.
 block header
     div.navbar.navbar-fixed-top.header-nav.header-nav--website-header
         div.container-fluid.header-nav__content
-            +completedHeader('Profile', '/assignment/profile.html')
+            +completedHeader('Profile', '#/user/{{model.userId}}')
 
 block footer
     div.navbar.navbar-fixed-bottom.footer-nav.footer-nav--website-footer
         div.container-fluid.footer-nav__content
             div.row
                 div.col-sm-12.text-right
-                    a(href='/assignment/profile.html')
+                    a(ng-href='#/user/{{model.userId}}')
                         +userButton
 
