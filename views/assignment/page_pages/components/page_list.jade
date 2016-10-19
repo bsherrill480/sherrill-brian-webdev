@@ -3,15 +3,10 @@ include ../../components/lists
 mixin page_list(controllerModelName)
     div(ng-repeat="page in " + controllerModelName + ".pages")
         +editableListItem("{{page.name}}",
-        "#/user/{{model.userId}}/website/{{model.websiteId}}/page",
+        "#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget",
         "#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}"
         )
 
-//+editableListItem("Blog Post", "/assignment/widget-list.html", "/assignment/page-edit.html")
-//+editableListItem("Blogs", "/assignment/widget-list.html", "/assignment/page-edit.html")
-//+editableListItem("Home", "/assignment/widget-list.html", "/assignment/page-edit.html")
-//+editableListItem("About", "/assignment/widget-list.html", "/assignment/page-edit.html")
-//+editableListItem("Contact Us", "/assignment/widget-list.html", "/assignment/page-edit.html")
 
 
 
