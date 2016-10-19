@@ -37,13 +37,19 @@
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page', {
-                templateUrl : '/assignment/page/page-list.view.client.html'
+                templateUrl : '/assignment/page/page-list.view.client.html',
+                controller: 'PageListController',
+                controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/new', {
-                templateUrl : '/assignment/page/page-new.view.client.html'
+                templateUrl : '/assignment/page/page-new.view.client.html',
+                controller: 'NewPageController',
+                controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/:pid', {
-                templateUrl : '/assignment/page/page-edit.view.client.html'
+                templateUrl : '/assignment/page/page-edit.view.client.html',
+                controller: 'EditPageController',
+                controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/:pid/widget', {
                 templateUrl : '/assignment/widget/widget-list.view.client.html'

@@ -17,5 +17,5 @@ block footer
         div.container-fluid.footer-nav__content
             div.row
                 div.col-sm-12.text-right
-                    a(href='/assignment/profile.html')
+                    a(ng-href='#/user/{{model.userId}}')
                         +userButton

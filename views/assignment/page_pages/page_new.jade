@@ -3,16 +3,19 @@ extends page-nav-layout
 include ../components/headers
 
 block page-header
-    +leftListRightCompleted('Pages', 'New Page', '/assignment/page-list.html',
-        '/assignment/page-new.html', '/assignment/page-list.html')
+    +leftListRightCompleted('Pages', 'New Page',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/new',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page',
+    'model.done(model.page)')
 
 block page-content
     form
         div.form-group
             label Name
-            input.form-control(type="text" placeholder="Page Name")
+            input.form-control(type="text" placeholder="Page Name" ng-model="model.page.name")
         div.form-group
             label Title
-            input.form-control(type="text" placeholder="Page Title")
+            input.form-control(type="text" placeholder="Page Title" ng-model="model.page.title")
 
 
