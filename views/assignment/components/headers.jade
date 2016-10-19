@@ -26,17 +26,21 @@ mixin completedHeader(listName, href)
                 a(ng-href="#{href}")
                     +checkButton
 
-mixin backCompletedHeader(listName, href)
+mixin backCompletedHeader(listName, backHref, completedHref, ngClick)
     div.row
         div.col-sm-12
-            span
+            a(ng-href=backHref)
                 +backButton
             span #{listName}
             div.pull-right
-                a(href="#{href}")
-                    +checkButton
+                if ngClick
+                    div.cursor-pointer(ng-click=ngClick)
+                        +checkButton
+                else
+                    a(ng-href=completedHref)
+                        +checkButton
 
-mixin leftListRightCompleted(listName, contentName, backHref, newHref, completedHref)
+mixin leftListRightCompleted(listName, contentName, backHref, newHref, completedHref, ngClick)
     div.landscape-or-portrait
         div.landscape-or-portrait__landscape
             div.landscape-responsive
@@ -45,11 +49,18 @@ mixin leftListRightCompleted(listName, contentName, backHref, newHref, completed
                 div.landscape-responsive__content
                     span #{contentName}
                     div.pull-right
-                        a(href="#{completedHref}")
-                            +checkButton
+                        //- I don't like using this if, but I feel extracting this into a template
+                        //- for one line isn't worth it yet. If we need to do another if ngClick,
+                        //- then we should extract.
+                        if ngClick
+                            div.cursor-pointer(ng-click=ngClick)
+                                +checkButton
+                        else
+                            a(ng-href=completedHref)
+                                +checkButton
 
         div.landscape-or-portrait__portrait
-            +backCompletedHeader(contentName)
+            +backCompletedHeader(contentName, backHref, completedHref, ngClick)
 
 mixin leftListRightBack(listName, contentName, backHref, newHref)
     div.landscape-or-portrait

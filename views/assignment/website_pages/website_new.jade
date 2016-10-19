@@ -3,16 +3,20 @@ extends websites-nav-layout
 include ../components/headers
 
 block website-header
-    +leftListRightCompleted('Websites', 'New Website', '/assignment/website-list.html',
-        '/assignment/website-new.html', '/assignment/website-list.html')
+    +leftListRightCompleted('Websites', 'New Website',
+    '#/user/{{model.userId}}/website',
+    '#/user/{{model.userId}}/website/new',
+    '#/user/{{model.userId}}/website',
+    'model.done(model.website)')
 
 block website-content
     form
         div.form-group
             label Name
-            input.form-control(type="text" placeholder="Name")
+            input.form-control(type="text" placeholder="Name" ng-model="model.website.name")
         div.form-group
             label Description
-            textarea.form-control(placeholder="Description", rows=5)
+            textarea.form-control(placeholder="Description", rows=5,
+            ng-model="model.website.description")
 
 

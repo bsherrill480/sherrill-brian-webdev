@@ -28,13 +28,13 @@
             })
             .when('/user/:uid/website/new', {
                 templateUrl : '/assignment/website/website-new.view.client.html',
-                // controller: 'NewWebsiteController',
-                // controllerAs: 'model'
+                controller: 'NewWebsiteController',
+                controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid', {
                 templateUrl : '/assignment/website/website-edit.view.client.html',
-                // controller: 'EditWebsiteController',
-                // controllerAs: 'model'
+                controller: 'EditWebsiteController',
+                controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page', {
                 templateUrl : '/assignment/page/page-list.view.client.html'

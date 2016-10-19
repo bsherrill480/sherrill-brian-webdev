@@ -126,3 +126,6 @@
 
 .list-item {
   margin-bottom: 1em; }
+
+.cursor-pointer {
+  cursor: pointer; }

@@ -3,6 +3,7 @@
     
     function LoginController($location, $window, UserService) {
         var vm = this;
+        
         function login(userCred) {
             var user;
             userCred = userCred || {};
@@ -19,6 +20,7 @@
 
     function RegisterController($location, $window, UserService) {
         var vm = this;
+        
         function register(userCred) {
             userCred = userCred || {};
             if(userCred.username && userCred.password && userCred.verifyPassword &&
@@ -38,9 +40,11 @@
     function ProfileController($routeParams, UserService) {
         var vm = this,
             userId = $routeParams["uid"];
+        
         function init() {
             vm.user = UserService.findUserById(userId);
         }
+        
         vm.userId = userId;
         init();
     }
