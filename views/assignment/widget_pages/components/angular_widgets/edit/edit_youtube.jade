@@ -1,0 +1,29 @@
+//include ../components/lists
+//
+//extends widget-nav-layout
+//
+//include ../components/headers
+//
+//block widget-header
+//    +leftListRightCompleted('Widgets', 'Edit Widget', "/assignment/widget-list.html",
+//        "/assignment/widget-chooser.html", "/assignment/widget-list.html")
+
+//block widget-content
+div.row.header-padding
+    div.col-sm-12
+        form
+            div.form-group
+                label Name
+                input.form-control(type="text" ng-model="model.widget.name")
+            div.form-group
+                label Text
+                input.form-control(type="text" ng-model="model.widget.text")
+            div.form-group
+                label Url
+                input.form-control(type="text" ng-model="model.widget.url")
+            div.form-group
+                label Width
+                input.form-control(type="text" value="100%" ng-model="model.widget.width")
+
+//block widget-footer
+//    include components/user_icon_footer

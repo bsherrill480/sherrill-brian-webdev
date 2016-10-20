@@ -1,0 +1,26 @@
+include ../components/lists
+
+extends widget-nav-layout
+
+include ../components/headers
+
+block widget-header
+    +leftListRightCompleted('Widgets', 'New Widget',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget',
+    'model.done(model.widget)')
+
+block widget-content
+    div(ng-switch="model.widget.widgetType")
+        div(ng-switch-when="HEADER")
+            ng-include(src="'/assignment/widget/edit-widget-heading.view.client.html'")
+        div(ng-switch-when="IMAGE")
+            ng-include(src="'/assignment/widget/edit-widget-image.view.client.html'")
+        div(ng-switch-when="YOUTUBE")
+            ng-include(src="'/assignment/widget/edit-widget-youtube.view.client.html'")
+        div(ng-switch-when="HTML")
+            ng-include(src="'/assignment/widget/edit-widget-html.view.client.html'")
+
+block widget-footer
+    include components/user_icon_footer

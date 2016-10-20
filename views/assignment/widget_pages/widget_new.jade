@@ -1,0 +1,43 @@
+include ../components/lists
+
+extends widget-nav-layout
+
+include ../components/headers
+
+block widget-header
+    +leftListRightCompleted('Widgets', 'New Widget',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget',
+    'model.done(model.widget)')
+    //+leftListRightCompleted('Widgets', 'New Widget',
+    //"/assignment/widget-list.html",
+    //"/assignment/widget-chooser.html",
+    //"/assignment/widget-list.html")
+
+block widget-content
+    div(ng-switch="model.widget.widgetType")
+        div(ng-switch-when="HEADER")
+            ng-include(src="'/assignment/widget/new-widget-heading.view.client.html'")
+        div(ng-switch-when="IMAGE")
+            ng-include(src="'/assignment/widget/new-widget-image.view.client.html'")
+        div(ng-switch-when="YOUTUBE")
+            ng-include(src="'/assignment/widget/new-widget-youtube.view.client.html'")
+        div(ng-switch-when="HTML")
+            ng-include(src="'/assignment/widget/new-widget-html.view.client.html'")
+    //div.row.header-padding
+    //    div.col-sm-12
+    //        form
+    //            div.form-group
+    //                label Name
+    //                input.form-control(type="text")
+    //            div.form-group
+    //                label Text
+    //                input.form-control(type="text" value="US Senate Reaches Compromise...")
+    //            div.form-group
+    //                label Size
+    //                input.form-control(type="number" value="3")
+    //            a.btn.btn-danger.btn-block(href="/assignment/widget-list.html") Delete
+
+block widget-footer
+    include components/user_icon_footer

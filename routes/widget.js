@@ -13,32 +13,70 @@ router.get('/widget-chooser.view.client.html', function (req, res, next) {
     res.render('assignment/widget_pages/widget_chooser');
 });
 
-// router.get('/widget-heading.view.client.html', function (req, res, next) {
-//     res.render('assignment/widget_pages/widget_heading');
-// });
-//
-// router.get('/widget-image.view.client.html', function (req, res, next) {
-//     res.render('assignment/widget_pages/widget_image');
-// });
-//
-// router.get('/widget-youtube.view.client.html', function (req, res, next) {
-//     res.render('assignment/widget_pages/widget_youtube');
-// });
+router.get('/widget-new.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_new');
+});
+
+router.get('/widget-edit.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/widget_edit');
+});
+
+// ------
+// Should refactor these into their own routes
+// ------
+
+//display
 
 router.get('/widget-heading.view.client.html', function (req, res, next) {
-    res.render('assignment/widget_pages/components/angular_widgets/display_heading');
+    res.render('assignment/widget_pages/components/angular_widgets/display/display_heading');
 });
 
 router.get('/widget-image.view.client.html', function (req, res, next) {
-    res.render('assignment/widget_pages/components/angular_widgets/display_image');
+    res.render('assignment/widget_pages/components/angular_widgets/display/display_image');
 });
 
 router.get('/widget-youtube.view.client.html', function (req, res, next) {
-    res.render('assignment/widget_pages/components/angular_widgets/display_youtube');
+    res.render('assignment/widget_pages/components/angular_widgets/display/display_youtube');
 });
 
 router.get('/widget-html.view.client.html', function (req, res, next) {
-    res.render('assignment/widget_pages/components/angular_widgets/display_html');
+    res.render('assignment/widget_pages/components/angular_widgets/display/display_html');
+});
+
+//new
+
+router.get('/new-widget-heading.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/new/new_heading');
+});
+
+router.get('/new-widget-image.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/new/new_image');
+});
+
+router.get('/new-widget-youtube.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/new/new_youtube');
+});
+
+router.get('/new-widget-html.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/new/new_html');
+});
+
+//edit
+
+router.get('/edit-widget-heading.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/edit/edit_heading');
+});
+
+router.get('/edit-widget-image.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/edit/edit_image');
+});
+
+router.get('/edit-widget-youtube.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/edit/edit_youtube');
+});
+
+router.get('/edit-widget-html.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/edit/edit_html');
 });
 
 module.exports = router;

@@ -27,60 +27,80 @@
         init();
     }
 
-    function NewPageController($routeParams, $location, $window, PageService) {
-        var vm = this,
-            userId = $routeParams['uid'],
-            websiteId = $routeParams['wid'];
-
-        function done(newPage) {
-            if(newPage && newPage.name) {
-                newPage._id = Math.floor(Math.random() * 1000); // make up a number for now
-                PageService.createPage(websiteId, newPage);
-                redirToWidgets($location, userId, websiteId);
-            } else {
-                $window.alert('Page not filled out.')
-            }
-        }
-        
-        vm.websiteId = websiteId;
-        vm.userId = userId;
-        vm.done = done;
-    }
-
-    function EditPageController($routeParams, $location, $window, PageService) {
+    function WidgetChooserController($routeParams, $sce, WidgetService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
             pageId = $routeParams['pid'];
 
-        function done(newPage) {
-            if(newPage && newPage.name) {
-                PageService.updatePage(pageId, newPage);
-                redirToWidgets($location, userId, websiteId);
+        vm.userId = userId;
+        vm.websiteId = websiteId;
+        vm.pageId = pageId;
+    }
+
+    function NewWidgetController($routeParams, $location, $window, WidgetService) {
+        var vm = this,
+            userId = $routeParams['uid'],
+            websiteId = $routeParams['wid'],
+            pageId = $routeParams['pid'],
+            widgetType = $routeParams['wgtype'];
+
+        function done(newWidget) {
+            if(newWidget && (newWidget.text || newWidget.url)) {
+                newWidget._id = Math.floor(Math.random() * 1000); // make up a number for now
+                WidgetService.createWidget(pageId, newWidget);
+                redirToWidgets($location, userId, websiteId, pageId);
             } else {
-                $window.alert('Website not filled out.')
+                $window.alert('Widget not filled out.')
+            }
+        }
+        
+        vm.userId = userId;
+        vm.websiteId = websiteId;
+        vm.pageId = pageId;
+        vm.widget = {
+            widgetType: widgetType
+        };
+        vm.done = done;
+    }
+
+    function EditWidgetController($routeParams, $location, $window, WidgetService) {
+        var vm = this,
+            userId = $routeParams['uid'],
+            websiteId = $routeParams['wid'],
+            pageId = $routeParams['pid'],
+            widgetId = $routeParams['wgid'];
+
+
+        function done(newWidget) {
+            if(newWidget && (newWidget.text || newWidget.url)) {
+                WidgetService.updateWidget(widgetId, newWidget);
+                redirToWidgets($location, userId, websiteId, pageId);
+            } else {
+                $window.alert('Widget not filled out.')
             }
         }
 
-        function deletePage(pageId) {
-            PageService.deletePage(pageId);
-            redirToWidgets($location, userId, websiteId);
+        function deleteWidget(pageId) {
+            WidgetService.deleteWidget(pageId);
+            redirToWidgets($location, userId, websiteId, pageId);
         }
 
         function init() {
-            var page = PageService.findPageById(pageId);
-            if(page) {
-                vm.page = _.clone(page);
+            var widget = WidgetService.findWidgetById(widgetId);
+            if(widget) {
+                vm.widget = _.clone(widget);
             } else { // not found. We don't have a 404 page so lets do this.
-                redirToWidgets($location, userId, websiteId);
+                redirToWidgets($location, userId, websiteId, pageId);
             }
         }
 
         vm.userId = userId;
         vm.websiteId = websiteId;
         vm.pageId = pageId;
+        vm.widgetId = widgetId;
         vm.done = done;
-        vm.deletePage = deletePage;
+        vm.deleteWidget = deleteWidget;
         init();
     }
 
@@ -88,8 +108,9 @@
         .module('WebAppMaker')
         .controller('WidgetListController',
             ['$routeParams', '$sce', 'WidgetService', WidgetListController])
-        .controller('NewPageController',
-            ['$routeParams', '$location', '$window', 'WidgetService', NewPageController])
-        .controller('EditPageController',
-            ['$routeParams', '$location', '$window', 'WidgetService', EditPageController]);
+        .controller('WidgetChooserController', ['$routeParams', WidgetChooserController])
+        .controller('NewWidgetController',
+            ['$routeParams', '$location', '$window', 'WidgetService', NewWidgetController])
+        .controller('EditWidgetController',
+            ['$routeParams', '$location', '$window', 'WidgetService', EditWidgetController]);
 })();

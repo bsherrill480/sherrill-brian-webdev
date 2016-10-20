@@ -1,8 +1,8 @@
 include ../../components/lists
 include widget_element_options
 
-mixin widget_list()
-    div(ng-repeat="widget in model.widgets")
+mixin widget_list(controllerModelName)
+    div(ng-repeat="widget in " + controllerModelName + ".widgets")
         //p {{widget.text}}
         div(ng-switch="widget.widgetType")
             div(ng-switch-when="HEADER")

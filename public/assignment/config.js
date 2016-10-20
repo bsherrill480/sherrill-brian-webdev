@@ -64,10 +64,19 @@
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/:pid/widget/new', {
-                templateUrl : '/assignment/widget/widget-chooser.view.client.html'
+                templateUrl : '/assignment/widget/widget-chooser.view.client.html',
+                controller: 'WidgetChooserController',
+                controllerAs: 'model'
+            })
+            .when('/user/:uid/website/:wid/page/:pid/widget/new/:wgtype', {
+                templateUrl : '/assignment/widget/widget-new.view.client.html',
+                controller: 'NewWidgetController',
+                controllerAs: 'model'               
             })
             .when('/user/:uid/website/:wid/page/:pid/widget/:wgid', {
-                templateUrl : '/assignment/widget/widget-edit.view.client.html'
+                templateUrl : '/assignment/widget/widget-edit.view.client.html',
+                controller: 'EditWidgetController',
+                controllerAs: 'model'               
             });
     }
     angular

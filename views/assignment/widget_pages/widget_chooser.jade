@@ -5,20 +5,23 @@ extends widget-nav-layout
 include ../components/headers
 
 block widget-header
-    +leftListRightBack('Widgets', 'Choose Widget', '/assignment/widget-list.html',
-        '/assignment/widget-chooser.html')
+    +leftListRightBack('Widgets', 'Choose Widget',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new')
+
 
 block widget-content
     div.row.header-padding
         div.col-sm-12
-            +listItem("Header", "/assignment/widget-heading.html")
+            - wBaseUrl = "#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new"
+            +listItem("Header", wBaseUrl + "/HEADER")
             +listItem("Label", "#")
-            +listItem("HTML", "#")
+            +listItem("HTML", wBaseUrl + "/HTML")
             +listItem("Text Input", "#")
             +listItem("Link", "#")
             +listItem("Button", "#")
-            +listItem("Image", '/assignment/widget-image.html')
-            +listItem("YouTube", '/assignment/widget-youtube.html')
+            +listItem("Image", wBaseUrl + "/IMAGE")
+            +listItem("YouTube", wBaseUrl + "/YOUTUBE")
             +listItem("Data Table", "#")
             +listItem("Repeater", "#")
 
