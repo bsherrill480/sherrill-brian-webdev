@@ -1,0 +1,8 @@
+include ../../../components/lists
+include ../widget_element_options
+
+div.widget-item
+    +widget_options("#/user/{{model.userId}}/website/{{model.websiteId}}/page/" +
+    "{{model.pageId}}/widget/{{widget._id}}" )
+    div.embed-responsive.embed-responsive-16by9(style="max-width: {{widget.width}};")
+        iframe.embed-responsive-item(src="{{widget.url}}" frameborder="0" allowfullscreen)

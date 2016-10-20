@@ -1,20 +1,23 @@
 extends layout
 
 include ../components/headers
+include components/widget_list
 
 block widget-header
-    +backListHeader('Widgets', '/assignment/page-list.html', '/assignment/widget-chooser.html')
+    //+backListHeader('Widgets', '/assignment/page-list.html', '/assignment/widget-chooser.html')
+    +backListHeader('Widgets',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page',
+    '#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new')
 
 block between-header-footer
     div.row.header-padding
         div.col-sm-12
-            include components/widget_list
-
+            +widget_list()
 block widget-footer
     div
         div.pull-left
             include components/widget_list_footer_stuff
 
         div.pull-right
-            a(href="/assignment/profile.html")
+            a(ng-href="#/user/{{model.userId}}")
                 +userButton

@@ -1,10 +1,17 @@
 (function() {
-    function doConfig($routeProvider) {
+    function doConfig($routeProvider, $sceDelegateProvider) {
         var landingRoute = {
             templateUrl : '/assignment/user/login.view.client.html',
             controller: 'LoginController',
             controllerAs: 'model'
         };
+
+        // allow youtube through
+        $sceDelegateProvider.resourceUrlWhitelist([
+            'self',
+            '*://www.youtube.com/**'
+        ]);
+
         // All top level controllers should be named model and bind all route params
 
         $routeProvider
@@ -12,7 +19,7 @@
             .when('/login', landingRoute)
             .when('/default', landingRoute)
             .when('/register', {
-                templateUrl : '/assignment/user/register.view.client.html',
+                templateUrl: '/assignment/user/register.view.client.html',
                 controller: 'RegisterController',
                 controllerAs: 'model'
             })
@@ -22,37 +29,39 @@
                 controllerAs: 'model'
             })
             .when('/user/:uid/website', {
-                templateUrl : '/assignment/website/website-list.view.client.html',
+                templateUrl: '/assignment/website/website-list.view.client.html',
                 controller: 'WebsiteListController',
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/new', {
-                templateUrl : '/assignment/website/website-new.view.client.html',
+                templateUrl: '/assignment/website/website-new.view.client.html',
                 controller: 'NewWebsiteController',
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid', {
-                templateUrl : '/assignment/website/website-edit.view.client.html',
+                templateUrl: '/assignment/website/website-edit.view.client.html',
                 controller: 'EditWebsiteController',
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page', {
-                templateUrl : '/assignment/page/page-list.view.client.html',
+                templateUrl: '/assignment/page/page-list.view.client.html',
                 controller: 'PageListController',
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/new', {
-                templateUrl : '/assignment/page/page-new.view.client.html',
+                templateUrl: '/assignment/page/page-new.view.client.html',
                 controller: 'NewPageController',
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/:pid', {
-                templateUrl : '/assignment/page/page-edit.view.client.html',
+                templateUrl: '/assignment/page/page-edit.view.client.html',
                 controller: 'EditPageController',
                 controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/:pid/widget', {
-                templateUrl : '/assignment/widget/widget-list.view.client.html'
+                templateUrl: '/assignment/widget/widget-list.view.client.html',
+                controller: 'WidgetListController',
+                controllerAs: 'model'
             })
             .when('/user/:uid/website/:wid/page/:pid/widget/new', {
                 templateUrl : '/assignment/widget/widget-chooser.view.client.html'
