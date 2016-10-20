@@ -47,7 +47,8 @@
 
         function done(newWidget) {
             if(newWidget && (newWidget.text || newWidget.url)) {
-                newWidget._id = Math.floor(Math.random() * 1000); // make up a number for now
+                newWidget._id = String(Math.floor(Math.random() * 1000)); // make up a number
+                // for now
                 WidgetService.createWidget(pageId, newWidget);
                 redirToWidgets($location, userId, websiteId, pageId);
             } else {

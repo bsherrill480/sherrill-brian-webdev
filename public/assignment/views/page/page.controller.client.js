@@ -27,7 +27,7 @@
 
         function done(newPage) {
             if(newPage && newPage.name) {
-                newPage._id = Math.floor(Math.random() * 1000); // make up a number for now
+                newPage._id = String(Math.floor(Math.random() * 1000)); // make up a number for now
                 PageService.createPage(websiteId, newPage);
                 redirToPages($location, userId, websiteId);
             } else {

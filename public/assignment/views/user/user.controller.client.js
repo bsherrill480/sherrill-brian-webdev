@@ -26,7 +26,7 @@
             if(userCred.username && userCred.password && userCred.verifyPassword &&
                     userCred.password === userCred.verifyPassword
             ) {
-                userCred._id = Math.floor(Math.random() * 1000); // make up a number for now
+                userCred._id = String(Math.floor(Math.random() * 1000)); // make up a number for now
                 UserService.createUser(userCred);
                 $location.url("/user/" + userCred._id);
             } else {

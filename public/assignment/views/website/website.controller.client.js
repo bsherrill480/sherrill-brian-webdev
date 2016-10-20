@@ -25,7 +25,8 @@
 
         function done(newWebsite) {
             if(newWebsite && newWebsite.name) {
-                newWebsite._id = Math.floor(Math.random() * 1000); // make up a number for now
+                newWebsite._id = String(Math.floor(Math.random() * 1000)); // make up a number
+                // for now
                 WebsiteService.createWebsite(userId, newWebsite);
                 redirToWebsites($location, userId);
             } else {
