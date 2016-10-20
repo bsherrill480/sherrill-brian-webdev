@@ -2,7 +2,7 @@
 const gulp = require('gulp'),
     sass = require('gulp-sass'),
     sassLint = require('gulp-sass-lint'),
-    SASS_FILES = './build/sass/**/*.scss';
+    SASS_FILES = './src/sass/**/*.scss';
 
 gulp.task('sass-lint', function () {
   return gulp.src(SASS_FILES)
