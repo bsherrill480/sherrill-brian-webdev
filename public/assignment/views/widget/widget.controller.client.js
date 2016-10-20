@@ -81,8 +81,8 @@
             }
         }
 
-        function deleteWidget(pageId) {
-            WidgetService.deleteWidget(pageId);
+        function deleteWidget(widgetId) {
+            WidgetService.deleteWidget(widgetId);
             redirToWidgets($location, userId, websiteId, pageId);
         }
 
