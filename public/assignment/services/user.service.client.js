@@ -21,17 +21,6 @@
                 return _.find(users, function (user) {
                     return userId == user._id;
                 });
-                // var i,
-                //     user;
-                //
-                // for(i=0; i<users.length; i++) {
-                //     user = users[i];
-                //     if(user._id == userId) {
-                //         return user;
-                //     }
-                // }
-                //
-                // return false;
             },
 
             findUserByUsername: function (username) {
