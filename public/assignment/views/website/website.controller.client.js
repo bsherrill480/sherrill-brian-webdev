@@ -1,34 +1,37 @@
 (function () {
     'use strict';
 
-
-    function redirToWebsites($location, userId) {
-        $location.url('/user/' + userId + '/website');
+    function redirToWebsitesCallback($location, userId) {
+        return function() {
+            $location.url('/user/' + userId + '/website');
+        };
     }
+
+    // function redirToWebsites($location, userId) {
+    //     $location.url('/user/' + userId + '/website');
+    // }
 
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this,
             userId = $routeParams['uid'];
 
 
-        function init() {
-            vm.websites = WebsiteService.findWebsitesByUserId(userId);
+        function init(websites) {
+            vm.websites = websites
         }
     
         vm.userId = userId;
-        init();
+        WebsiteService.findWebsitesByUserId(userId).then(init);
     }
 
     function NewWebsiteController($routeParams, $location, $window, WebsiteService) {
         var vm = this,
-            userId = $routeParams['uid'];
+            userId = $routeParams['uid'],
+            redirToWebsites = redirToWebsitesCallback($location, userId);
 
         function done(newWebsite) {
             if(newWebsite && newWebsite.name) {
-                newWebsite._id = String(Math.floor(Math.random() * 1000)); // make up a number
-                // for now
-                WebsiteService.createWebsite(userId, newWebsite);
-                redirToWebsites($location, userId);
+                WebsiteService.createWebsite(userId, newWebsite).then(redirToWebsites);
             } else {
                 $window.alert('Website not filled out.')
             }
@@ -41,35 +44,33 @@
     function EditWebsiteController($routeParams, $location, $window, WebsiteService) {
         var vm = this,
             userId = $routeParams['uid'],
-            websiteId = $routeParams['wid'];
+            websiteId = $routeParams['wid'],
+            redirToWebsites = redirToWebsitesCallback($location, userId);
 
         function done(newWebsite) {
             if(newWebsite && newWebsite.name) {
-                WebsiteService.updateWebsite(websiteId, newWebsite);
-                redirToWebsites($location, userId);
+                WebsiteService.updateWebsite(websiteId, newWebsite).then(redirToWebsites);
             } else {
                 $window.alert('Website not filled out.')
             }
         }
 
         function deleteWebsite(websiteId) {
-            WebsiteService.deleteWebsite(websiteId);
-            redirToWebsites($location, userId);
+            WebsiteService.deleteWebsite(websiteId).then(redirToWebsites);
         }
 
-        function init() {
-            var website = WebsiteService.findWebsiteById(websiteId);
+        function init(website) {
             if(website) {
-                vm.website = _.clone(website);
+                vm.website = website;
             } else { // not found. We don't have a 404 page so lets do this.
-                redirToWebsites($location, userId);
+                redirToWebsites();
             }
         }
 
         vm.userId = userId;
         vm.done = done;
         vm.deleteWebsite = deleteWebsite;
-        init();
+        WebsiteService.findWebsiteById(websiteId).then(init)
     }
 
     angular

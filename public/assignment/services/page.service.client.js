@@ -1,19 +1,21 @@
 (function() {
     'use strict';
 
-    function PageService() {
-        var pages,
-            api;
-        pages = [
-            { "_id": "321", "name": "Post 1", "websiteId": "456" },
-            { "_id": "432", "name": "Post 2", "websiteId": "456" },
-            { "_id": "543", "name": "Post 3", "websiteId": "456" }
-        ];
+    function PageService($http) {
+        var api;
         api = {
             // adds the page parameter instance to the local pages array
             createPage: function (websiteId, page) {
-                page.websiteId = websiteId;
-                pages.push(page);
+                // page.websiteId = websiteId;
+                // pages.push(page);
+                return $http({
+                    method: 'POST',
+                    url: '/assignment/website/:websiteId/page',
+                    data: {
+                        websiteId: websiteId,
+                        page: page
+                    }
+                });
             },
 
             findPagesByWebsiteId: function (websiteId) {
@@ -50,6 +52,6 @@
 
     angular
         .module('WebAppMaker')
-        .factory('PageService', PageService);
+        .factory('PageService', ['$http', PageService]);
 
 })();

@@ -35,13 +35,14 @@
 const express = require('express'),
     _ = require('lodash'),
     router = express.Router(),
+    servicesUtil = require('./util'),
     websites = [
-        { "_id": "123", "name": "Facebook",    "developerId": "456" },
-        { "_id": "234", "name": "Tweeter",     "developerId": "456" },
-        { "_id": "456", "name": "Gizmodo",     "developerId": "456" },
-        { "_id": "567", "name": "Tic Tac Toe", "developerId": "123" },
-        { "_id": "678", "name": "Checkers",    "developerId": "123" },
-        { "_id": "789", "name": "Chess",       "developerId": "234" }
+        { "_id": "123", "name": "Facebook", "developerId": "456", "description": ""},
+        { "_id": "234", "name": "Tweeter", "developerId": "456", "description": ""},
+        { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": ""},
+        { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": ""},
+        { "_id": "678", "name": "Checkers", "developerId": "123", "description": ""},
+        { "_id": "789", "name": "Chess", "developerId": "234", "description": ""}
     ];
 
 let websiteIdCounter = {
@@ -49,7 +50,7 @@ let websiteIdCounter = {
     getCountAndIncrement() {
         let oldCount = this._count;
         this._count++;
-        return oldCount;
+        return String(oldCount);
     }
 };
 
@@ -57,7 +58,7 @@ let websiteIdCounter = {
 function getWebsiteObj(someObject, _id) {
     let website = {
         name: someObject.name,
-        developerId: someObject.developerId
+        description: servicesUtil.ifUndefinedThenDefault(someObject.description, '')
     };
     if(_id) {
         website._id = _id;
@@ -76,7 +77,8 @@ function findWebsiteResponse(req, res, next, predicate) {
 }
 
 function websiteIsValidNoId(website) {
-    return website.name && website.developerId
+    return website.name && website.developerId &&
+        servicesUtil.ifHasAttrThenIsString(website.description)
 }
 
 function websiteIsValid(website) {
@@ -87,13 +89,12 @@ function websiteIsValid(website) {
 router.get('/user/:userId/website', function (req, res, next) {
     let userId = req.params.userId;
     res.json(_.filter(websites, function (website) {
-        return userId === website.websiteId;
+        return userId === website.developerId;
     }));
 });
 
 router.post('/user/:userId/website', function (req, res, next) {
     let sentWebsite = req.body;
-    // basic validation, not secure at all
     if(websiteIsValidNoId(sentWebsite)) {
         let website = getWebsiteObj(sentWebsite, websiteIdCounter.getCountAndIncrement());
         websites.push(website);
@@ -115,7 +116,7 @@ router.put('/website/:websiteId', function (req, res, next) {
         let website = _.find(websites, (website) => {return website._id === sentWebsite._id;});
         if(website) {
             website.name = sentWebsite.name;
-            website.websiteId = sentWebsite.websiteId;
+            website.description = sentWebsite.description;
         }
         res.json(website);
     } else {

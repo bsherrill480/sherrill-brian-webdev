@@ -4,30 +4,56 @@
  */
 const express = require('express'),
     _ = require('lodash'),
+    servicesUtil = require('./util'),
+    ifUndefinedThenDefault = servicesUtil.ifUndefinedThenDefault,
+    ifHasAttrThenIsString = servicesUtil.ifHasAttrThenIsString,
     router = express.Router(),
     users = [
-    {_id: '123', username: 'alice',    password: 'alice',    firstName: 'Alice',  lastName: 'Wonder'  },
-    {_id: '234', username: 'bob',      password: 'bob',      firstName: 'Bob',    lastName: 'Marley'  },
-    {_id: '345', username: 'charly',   password: 'charly',   firstName: 'Charly', lastName: 'Garcia'  },
-    {_id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose',   lastName: 'Annunzi' }
-];
+        {
+            _id: '123',
+            username: 'alice',
+            password: 'alice',
+            firstName: 'Alice',
+            lastName: 'Wonder',
+            email: ''
+        },
+        {
+            _id: '234',
+            username: 'bob',
+            password: 'bob',
+            firstName: 'Bob',
+            lastName: 'Marley',
+            email: ''
+        },
 
-let userIdCounter = {
-    _count: 1000,
-    getCountAndIncrement() {
-        let oldCount = this._count;
-        this._count++;
-        return oldCount;
-    }
-};
+        {
+            _id: '345',
+            username: 'charly',
+            password: 'charly',
+            firstName: 'Charly',
+            lastName: 'Garcia',
+            email: ''
+        },
+
+        {
+            _id: '456',
+            username: 'jannunzi',
+            password: 'jannunzi',
+            firstName: 'Jose',
+            lastName: 'Annunzi',
+            email: ''
+        }
+    ],
+    userIdCounter = servicesUtil.getIdCounter();
 
 // only want user's attributes from object, ignore all others
 function getUserObj(someObject, _id) {
     let user = {
         username: someObject.username,
         password: someObject.password,
-        firstName: someObject.firstName,
-        lastName: someObject.lastName
+        firstName: ifUndefinedThenDefault(someObject.firstName, ''),
+        lastName: ifUndefinedThenDefault(someObject.lastName, ''),
+        email: ifUndefinedThenDefault(someObject.email, '')
     };
     if(_id) {
         user._id = _id;
@@ -45,8 +71,16 @@ function findUserResponse(req, res, next, predicate) {
     }
 }
 
+// function ifHasAttrThenIsString(obj, attr) {
+//     var attrVal = obj[attr];
+//     return _.isUndefined(attrVal) || _.isString(attrVal);
+// }
+
 function userIsValidNoId(user) {
-    return user.username && user.password && user.firstName && user.lastName;
+    return user.username && user.password && _.isString(user.username) && _.isString(user.password)
+        && ifHasAttrThenIsString(user, 'firstName')
+        && ifHasAttrThenIsString(user, 'lastName')
+        && ifHasAttrThenIsString(user, 'email');
 }
 
 function userIsValid(user) {
@@ -57,9 +91,8 @@ function userIsValid(user) {
 router.get('/user', function (req, res, next) {
     let username = req.query.username,
         password = req.query.password;
-    console.log("users:", users);
+    console.log("req.query:", req.query);
     if(username && password) {
-        // findUserByCredentials(req, res, next);
         findUserResponse(req, res, next,
             (user) => {return user.username === username && user.password === password;});
     } else if(username) {
@@ -91,13 +124,11 @@ router.get('/user/:userId', function (req, res, next) {
 
 router.put('/user/:userId', function (req, res, next) {
     let sentUser = req.body;
+    console.log('put:', sentUser);
     if(userIsValid(sentUser)) {
-        let user = _.find(users, (user) => {return user._id === sentUser._id;});
+        let user= _.find(users, (user) => {return user._id === sentUser._id;});
         if(user) {
-            user.username = sentUser.username;
-            user.password = sentUser.password;
-            user.firstName = sentUser.firstName;
-            user.lastName = sentUser.lastName;
+            _.assign(user, getUserObj(sentUser));
         }
         res.json(user);
     } else {

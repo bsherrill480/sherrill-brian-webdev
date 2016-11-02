@@ -5,14 +5,17 @@
         var vm = this;
         
         function login(userCred) {
-            var user;
+            var promise;
             userCred = userCred || {};
-            user = UserService.findUserByCredentials(userCred.username, userCred.password);
-            if(user) {
-                $location.url("/user/" + user._id);
-            } else {
-                $window.alert("Unable to login");
-            }
+            promise = UserService.findUserByCredentials(userCred.username, userCred.password);
+            promise
+                .then(function (user) {
+                    $location.url("/user/" + user._id);
+                })
+                .catch(function (response) {
+                    $window.alert("Unable to login");
+                    return response;
+                });
         }
 
         vm.login = login;
@@ -22,13 +25,24 @@
         var vm = this;
         
         function register(userCred) {
+            var promise,
+                user;
             userCred = userCred || {};
             if(userCred.username && userCred.password && userCred.verifyPassword &&
                     userCred.password === userCred.verifyPassword
             ) {
-                userCred._id = String(Math.floor(Math.random() * 1000)); // make up a number for now
-                UserService.createUser(userCred);
-                $location.url("/user/" + userCred._id);
+                user = {
+                    username: userCred.username,
+                    password: userCred.password
+                };
+                promise = UserService.createUser(user);
+                promise
+                    .then(function (payload) {
+                        $location.url("/user/" + payload._id);
+                    })
+                    .catch(function (response) {
+                        $window.alert("Unable to login");
+                    });
             } else {
                 $window.alert("Unable to login");
             }
@@ -37,16 +51,32 @@
         vm.register = register;
     }
     
-    function ProfileController($routeParams, UserService) {
+    function ProfileController($routeParams, $window, UserService) {
         var vm = this,
             userId = $routeParams["uid"];
         
-        function init() {
-            vm.user = UserService.findUserById(userId);
+        function init(user) {
+            vm.user = user;
         }
         
+        function update(user) {
+            if(vm.profile.$valid) {
+                UserService.updateUser(userId, user)
+                    .catch(function () {
+                        $window.alert('Unable to save');
+                    })
+            } else {
+                $window.alert('Please check profile ');
+            }
+        }
+
+        vm.validation = {
+            emailValid: false
+        };
+        
         vm.userId = userId;
-        init();
+        vm.update = update;
+        UserService.findUserById(userId).then(init);
     }
 
     angular
@@ -56,5 +86,8 @@
             'RegisterController',
             ['$location', '$window', 'UserService', RegisterController]
         )
-        .controller('ProfileController', ['$routeParams', 'UserService', ProfileController]);
+        .controller(
+            'ProfileController', 
+            ['$routeParams', '$window', 'UserService', ProfileController]
+        );
 })();

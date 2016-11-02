@@ -8,19 +8,23 @@ block content
         div.container-fluid
             div.row.header-padding
                 div.col-sm-12
-                    form
+                    form(name="model.profile")
                         div.form-group
-                            label Username
-                            input.form-control(type="text" ng-model="model.user.username")
+                            label.control-label(for="profile-username") Username
+                            input.form-control(type="text" ng-model="model.user.username"
+                            id="profile-username")
+                        div.form-group(ng-class="{'has-error': model.profile.email.$error.email}")
+                            label.control-label(for="profile-email") Email
+                            input.form-control(type="email" ng-model="model.user.email"
+                            name="email" id="profile-email")
                         div.form-group
-                            label Email
-                            input.form-control(type="email" ng-model="model.user.email")
+                            label.control-label(for="profile-first-name") Fist Name
+                            input.form-control(type="text" ng-model="model.user.firstName"
+                            id="profile-first-name")
                         div.form-group
-                            label Fist Name
-                            input.form-control(type="text" ng-model="model.user.firstName")
-                        div.form-group
-                            label Last Name
-                            input.form-control(type="text" ng-model="model.user.lastName")
+                            label.control-label(for="profile-first-last") Last Name
+                            input.form-control(type="text" ng-model="model.user.lastName"
+                            id="profile-first-last")
                         a.btn.btn-primary.btn-block(
                         ng-href="#/user/{{model.userId}}/website/") Websites
                         a.btn.btn-danger.btn-block(href="#/login") Logout
@@ -29,7 +33,7 @@ block content
 block header
     div.navbar.navbar-fixed-top.header-nav.header-nav--website-header
         div.container-fluid.header-nav__content
-            +completedHeader('Profile', '#/user/{{model.userId}}')
+            +completedHeader('Profile', '#/user/{{model.userId}}', 'model.update(model.user)')
 
 block footer
     div.navbar.navbar-fixed-bottom.footer-nav.footer-nav--website-footer

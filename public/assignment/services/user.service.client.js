@@ -1,55 +1,66 @@
 (function() {
     'use strict';
 
-    function UserService() {
-        var users,
-            api;
-        users = [
-            {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
-            {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-            {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-            {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
-        ];
+    function UserService($http) {
+        var api;
         api = {
             // adds the user parameter instance to the local users array
             createUser: function (user) {
-                users.push(user);
+                return $http({
+                    method: 'POST',
+                    url: '/assignment/api/user',
+                    data: user
+                }).then(function (payload) {
+                    return payload.data;
+                });
             },
 
 
             findUserById: function (userId) {
-                return _.find(users, function (user) {
-                    return userId == user._id;
+                return $http({
+                    method: 'GET',
+                    url: '/assignment/api/user/' + userId
+                }).then(function (payload) {
+                    return payload.data;
                 });
             },
 
             findUserByUsername: function (username) {
-                return _.find(users, function (user) {
-                    return username === user.username;
+                return $http({
+                    method: 'GET',
+                    url: '/assignment/api/user' ,
+                    data: {
+                        username: username
+                    }
                 });
             },
 
             findUserByCredentials: function (username, password) {
-                return _.find(users, function (user) {
-                    return username === user.username && password === user.password;
+                return $http({
+                    method: 'GET',
+                    url: '/assignment/api/user' ,
+                    params: {
+                        username: username,
+                        password: password
+                    }
+                }).then(function (payload) {
+                    return payload.data;
                 });
             },
 
-            // takes passed user and keep it for internal use.
             updateUser: function (userId, user) {
-                var userIndex = _.findIndex(users, function (loopedUser) {
-                    return loopedUser._id === userId;
+                return $http({
+                    method: 'PUT',
+                    url: '/assignment/api/user/' + userId,
+                    data: user
                 });
-                if(userIndex !== -1) {
-                    user._id = userId;
-                    users[userIndex] = user;
-                }
             },
 
             deleteUser: function (userId) {
-                _.remove(users, function (user) {
-                    return user._id === userId;
-                })
+                return $http({
+                    method: 'DELETE',
+                    url: '/assignment/api/user/' + userId
+                });
             }
         };
         return api;
@@ -57,6 +68,6 @@
 
     angular
         .module('WebAppMaker')
-        .factory('UserService', UserService);
+        .factory('UserService', ['$http', UserService]);
 
 })();

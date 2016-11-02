@@ -18,13 +18,17 @@ mixin backListHeader(listName, backHref, newHref)
                 a(ng-href="#{newHref}")
                     +plusButton
 
-mixin completedHeader(listName, href)
+mixin completedHeader(listName, href, ngClick)
     div.row
         div.col-sm-12
             span #{listName}
             div.pull-right
-                a(ng-href="#{href}")
-                    +checkButton
+                if ngClick
+                    div.cursor-pointer(ng-click=ngClick)
+                        +checkButton
+                else
+                    a(ng-href=completedHref)
+                        +checkButton
 
 mixin backCompletedHeader(listName, backHref, completedHref, ngClick)
     div.row
