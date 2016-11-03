@@ -8,13 +8,11 @@
             createPage: function (websiteId, page) {
                 // page.websiteId = websiteId;
                 // pages.push(page);
+                // page.websiteId = websiteId;
                 return $http({
                     method: 'POST',
                     url: '/assignment/api/website/' + websiteId + '/page',
-                    data: {
-                        websiteId: websiteId,
-                        page: page
-                    }
+                    data: page
                 });
             },
 
@@ -45,19 +43,13 @@
                 }).then(function (payload) {
                     return payload.data;
                 });
-                // var pageIndex = _.findIndex(pages, function (loopedPage) {
-                //     return loopedPage._id === pageId;
-                // });
-                // if(pageIndex !== -1) {
-                //     page._id = pageId;
-                //     pages[pageIndex] = page;
-                // }
             },
 
             deletePage: function (pageId) {
-                _.remove(pages, function (page) {
-                    return page._id === pageId;
-                })
+                return $http({
+                    method: 'DELETE',
+                    url: '/assignment/api/page/' + pageId
+                });
             }
         };
         return api;

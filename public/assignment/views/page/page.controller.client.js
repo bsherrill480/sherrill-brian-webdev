@@ -1,10 +1,15 @@
 (function () {
     'use strict';
 
-
-    function redirToPages($location, userId, websiteId) {
-        $location.url('/user/' + userId + '/website/' + websiteId + '/page');
+    function redirToPagesCallback($location, userId, websiteId) {
+        return function() {
+            $location.url('/user/' + userId + '/website/' + websiteId + '/page');
+        };
     }
+
+    // function redirToPages($location, userId, websiteId) {
+    //     $location.url('/user/' + userId + '/website/' + websiteId + '/page');
+    // }
 
     function PageListController($routeParams, PageService) {
         var vm = this,
@@ -25,13 +30,12 @@
     function NewPageController($routeParams, $location, $window, PageService) {
         var vm = this,
             userId = $routeParams['uid'],
-            websiteId = $routeParams['wid'];
+            websiteId = $routeParams['wid'],
+            redirToPages = redirToPagesCallback($location, userId, websiteId);
 
         function done(newPage) {
             if(newPage && newPage.name) {
-                newPage._id = String(Math.floor(Math.random() * 1000)); // make up a number for now
-                PageService.createPage(websiteId, newPage);
-                redirToPages($location, userId, websiteId);
+                PageService.createPage(websiteId, newPage).then(redirToPages);
             } else {
                 $window.alert('Page not filled out.')
             }
@@ -39,6 +43,8 @@
         
         vm.websiteId = websiteId;
         vm.userId = userId;
+        vm.page = {};
+        vm.page.websiteId = websiteId;
         vm.done = done;
     }
 
@@ -46,20 +52,19 @@
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
-            pageId = $routeParams['pid'];
+            pageId = $routeParams['pid'],
+            redirToPages = redirToPagesCallback($location, userId, websiteId);
 
         function done(newPage) {
             if(newPage && newPage.name) {
-                PageService.updatePage(pageId, newPage);
-                redirToPages($location, userId, websiteId);
+                PageService.updatePage(pageId, newPage).then(redirToPages);
             } else {
                 $window.alert('Website not filled out.')
             }
         }
 
         function deletePage(pageId) {
-            PageService.deletePage(pageId);
-            redirToPages($location, userId, websiteId);
+            PageService.deletePage(pageId).then(redirToPages);
         }
 
         function init(page) {
@@ -67,7 +72,7 @@
             if(page) {
                 vm.page = _.clone(page);
             } else { // not found. We don't have a 404 page so lets do this.
-                redirToPages($location, userId, websiteId);
+                redirToPages();
             }
         }
 

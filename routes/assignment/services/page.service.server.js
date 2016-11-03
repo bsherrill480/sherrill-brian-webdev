@@ -4,6 +4,9 @@
  */
 const express = require('express'),
     _ = require('lodash'),
+    servicesUtil = require('./util'),
+    ifUndefinedThenDefault = servicesUtil.ifUndefinedThenDefault,
+    ifHasAttrThenIsString = servicesUtil.ifHasAttrThenIsString,
     router = express.Router(),
     pages = [
         { "_id": "321", "name": "Post 1", "websiteId": "456", "title": ""},
@@ -24,7 +27,8 @@ let pageIdCounter = {
 function getPageObj(someObject, _id) {
     let page = {
         name: someObject.name,
-        websiteId: someObject.websiteId
+        websiteId: someObject.websiteId,
+        title: ifUndefinedThenDefault(someObject.title, '')
     };
     if(_id) {
         page._id = _id;
@@ -43,7 +47,7 @@ function findPageResponse(req, res, next, predicate) {
 }
 
 function pageIsValidNoId(page) {
-    return page.name && page.websiteId
+    return page.name && page.websiteId && ifHasAttrThenIsString(page, 'title')
 }
 
 function pageIsValid(page) {
@@ -83,7 +87,7 @@ router.put('/page/:pageId', function (req, res, next) {
         if(page) {
             page.name = sentPage.name;
             page.websiteId = sentPage.websiteId;
-            page.title = sentPage.title;
+            page.title = ifUndefinedThenDefault(sentPage.title, '');
         }
         res.json(page);
     } else {
