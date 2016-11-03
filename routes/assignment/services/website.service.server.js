@@ -58,6 +58,7 @@ let websiteIdCounter = {
 function getWebsiteObj(someObject, _id) {
     let website = {
         name: someObject.name,
+        developerId: someObject.developerId,
         description: servicesUtil.ifUndefinedThenDefault(someObject.description, '')
     };
     if(_id) {

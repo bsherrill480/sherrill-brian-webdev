@@ -10,7 +10,7 @@
                 // pages.push(page);
                 return $http({
                     method: 'POST',
-                    url: '/assignment/website/:websiteId/page',
+                    url: '/assignment/api/website/' + websiteId + '/page',
                     data: {
                         websiteId: websiteId,
                         page: page
@@ -19,26 +19,39 @@
             },
 
             findPagesByWebsiteId: function (websiteId) {
-                return _.filter(pages, function (page) {
-                    return websiteId == page.websiteId;
+                return $http({
+                    method: 'GET',
+                    url: '/assignment/api/website/' + websiteId + '/page'
+                }).then(function (payload) {
+                    return payload.data;
                 });
             },
 
             findPageById: function (pageId) {
-                return _.find(pages, function (page) {
-                    return pageId === page._id;
+                return $http({
+                    method: 'GET',
+                    url: '/assignment/api/page/' + pageId
+                }).then(function (payload) {
+                    return payload.data;
                 });
             },
 
             // takes passed page and keep it for internal use.
             updatePage: function (pageId, page) {
-                var pageIndex = _.findIndex(pages, function (loopedPage) {
-                    return loopedPage._id === pageId;
+                return $http({
+                    method: 'PUT',
+                    url: '/assignment/api/page/' + pageId,
+                    data: page
+                }).then(function (payload) {
+                    return payload.data;
                 });
-                if(pageIndex !== -1) {
-                    page._id = pageId;
-                    pages[pageIndex] = page;
-                }
+                // var pageIndex = _.findIndex(pages, function (loopedPage) {
+                //     return loopedPage._id === pageId;
+                // });
+                // if(pageIndex !== -1) {
+                //     page._id = pageId;
+                //     pages[pageIndex] = page;
+                // }
             },
 
             deletePage: function (pageId) {

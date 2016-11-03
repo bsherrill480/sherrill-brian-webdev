@@ -6,9 +6,9 @@ const express = require('express'),
     _ = require('lodash'),
     router = express.Router(),
     pages = [
-        { "_id": "321", "name": "Post 1", "websiteId": "456" },
-        { "_id": "432", "name": "Post 2", "websiteId": "456" },
-        { "_id": "543", "name": "Post 3", "websiteId": "456" }
+        { "_id": "321", "name": "Post 1", "websiteId": "456", "title": ""},
+        { "_id": "432", "name": "Post 2", "websiteId": "456", "title": ""},
+        { "_id": "543", "name": "Post 3", "websiteId": "456", "title": ""}
     ];
 
 let pageIdCounter = {
@@ -16,7 +16,7 @@ let pageIdCounter = {
     getCountAndIncrement() {
         let oldCount = this._count;
         this._count++;
-        return oldCount;
+        return String(oldCount);
     }
 };
 
@@ -83,6 +83,7 @@ router.put('/page/:pageId', function (req, res, next) {
         if(page) {
             page.name = sentPage.name;
             page.websiteId = sentPage.websiteId;
+            page.title = sentPage.title;
         }
         res.json(page);
     } else {

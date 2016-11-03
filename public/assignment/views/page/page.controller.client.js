@@ -11,13 +11,15 @@
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'];
 
-        function init() {
-            vm.pages = PageService.findPagesByWebsiteId(websiteId);
+        function init(pages) {
+            vm.pages = pages;
+            // vm.pages = PageService.findPagesByWebsiteId(websiteId);
         }
     
         vm.userId = userId;
         vm.websiteId = websiteId;
-        init();
+        // init();
+        PageService.findPagesByWebsiteId(websiteId).then(init);
     }
 
     function NewPageController($routeParams, $location, $window, PageService) {
@@ -60,8 +62,8 @@
             redirToPages($location, userId, websiteId);
         }
 
-        function init() {
-            var page = PageService.findPageById(pageId);
+        function init(page) {
+            // var page = PageService.findPageById(pageId);
             if(page) {
                 vm.page = _.clone(page);
             } else { // not found. We don't have a 404 page so lets do this.
@@ -74,7 +76,8 @@
         vm.pageId = pageId;
         vm.done = done;
         vm.deletePage = deletePage;
-        init();
+
+        PageService.findPageById(pageId).then(init);
     }
 
     angular

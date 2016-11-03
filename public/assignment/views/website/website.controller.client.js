@@ -38,6 +38,8 @@
         }
 
         vm.userId = userId;
+        vm.website = {};
+        vm.website.developerId = userId;
         vm.done = done;
     }
 
