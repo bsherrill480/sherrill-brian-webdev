@@ -1,9 +1,10 @@
 (function () {
     'use strict';
 
-
-    function redirToWidgets($location, userId, websiteId, pageId) {
-        $location.url('/user/' + userId + '/website/' + websiteId + '/page/' + pageId + '/widget');
+    function redirToWidgetsCallback($location, userId, websiteId, pageId) {
+        return function() {
+            $location.url('/user/' + userId + '/website/' + websiteId + '/page/' + pageId + '/widget');
+        };
     }
 
     function WidgetListController($routeParams, $sce, WidgetService) {
@@ -12,9 +13,10 @@
             websiteId = $routeParams['wid'],
             pageId = $routeParams['pid'];
 
-        function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(pageId);
-            _.each(vm.widgets, function (widget) {
+        function init(widgets) {
+            vm.widgets = widgets;
+            // vm.widgets = WidgetService.findWidgetsByPageId(pageId);
+            _.each(widgets, function (widget) {
                 if(widget.widgetType === 'HTML') { // so tempted to use underscore chain method
                     widget.textTrusted = $sce.trustAsHtml(widget.text);
                 }
@@ -24,7 +26,7 @@
         vm.userId = userId;
         vm.websiteId = websiteId;
         vm.pageId = pageId;
-        init();
+        WidgetService.findWidgetsByPageId(pageId).then(init);
     }
 
     function WidgetChooserController($routeParams, $sce, WidgetService) {
@@ -43,14 +45,14 @@
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
             pageId = $routeParams['pid'],
-            widgetType = $routeParams['wgtype'];
+            widgetType = $routeParams['wgtype'],
+            redirToWidgets = redirToWidgetsCallback($location, userId, websiteId, pageId);
 
         function done(newWidget) {
             if(newWidget && (newWidget.text || newWidget.url)) {
-                newWidget._id = String(Math.floor(Math.random() * 1000)); // make up a number
+                // newWidget._id = String(Math.floor(Math.random() * 1000)); // make up a number
                 // for now
-                WidgetService.createWidget(pageId, newWidget);
-                redirToWidgets($location, userId, websiteId, pageId);
+                WidgetService.createWidget(pageId, newWidget).then(redirToWidgets);
             } else {
                 $window.alert('Widget not filled out.')
             }
@@ -65,30 +67,29 @@
         vm.done = done;
     }
 
-    function EditWidgetController($routeParams, $location, $window, WidgetService) {
+    function editWidgetController($routeParams, $location, $window, WidgetService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
             pageId = $routeParams['pid'],
-            widgetId = $routeParams['wgid'];
+            widgetId = $routeParams['wgid'],
+            redirToWidgets = redirToWidgetsCallback($location, userId, websiteId, pageId);
 
 
         function done(newWidget) {
             if(newWidget && (newWidget.text || newWidget.url)) {
-                WidgetService.updateWidget(widgetId, newWidget);
-                redirToWidgets($location, userId, websiteId, pageId);
+                WidgetService.updateWidget(widgetId, newWidget).then(redirToWidgets);
             } else {
                 $window.alert('Widget not filled out.')
             }
         }
 
         function deleteWidget(widgetId) {
-            WidgetService.deleteWidget(widgetId);
-            redirToWidgets($location, userId, websiteId, pageId);
+            WidgetService.deleteWidget(widgetId).then(redirToWidgets);
         }
 
-        function init() {
-            var widget = WidgetService.findWidgetById(widgetId);
+        function init(widget) {
+            // var widget = WidgetService.findWidgetById(widgetId);
             if(widget) {
                 vm.widget = _.clone(widget);
             } else { // not found. We don't have a 404 page so lets do this.
@@ -102,7 +103,7 @@
         vm.widgetId = widgetId;
         vm.done = done;
         vm.deleteWidget = deleteWidget;
-        init();
+        WidgetService.findWidgetById(widgetId).then(init);
     }
 
     angular
@@ -113,5 +114,5 @@
         .controller('NewWidgetController',
             ['$routeParams', '$location', '$window', 'WidgetService', NewWidgetController])
         .controller('EditWidgetController',
-            ['$routeParams', '$location', '$window', 'WidgetService', EditWidgetController]);
+            ['$routeParams', '$location', '$window', 'WidgetService', editWidgetController]);
 })();

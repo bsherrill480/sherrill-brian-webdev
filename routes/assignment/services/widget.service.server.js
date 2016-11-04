@@ -22,7 +22,7 @@ let widgetIdCounter = {
     getCountAndIncrement() {
         let oldCount = this._count;
         this._count++;
-        return oldCount;
+        return String(oldCount);
     }
 };
 
@@ -60,7 +60,7 @@ function widgetIsValid(widget) {
 
 
 router.get('/page/:pageId/widget', function (req, res, next) {
-    let pageId = req.params.websiteId;
+    let pageId = req.params.pageId;
     res.json(_.filter(widgets, function (widget) {
         return pageId == widget.pageId;
     }));
