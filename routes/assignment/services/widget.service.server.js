@@ -89,8 +89,14 @@ router.put('/widget/:widgetId', function (req, res, next) {
     if(widgetIsValid(sentWidget)) {
         let widget = _.find(widgets, (widget) => {return widget._id === sentWidget._id;});
         if(widget) {
-            widget.name = sentWidget.name;
-            widget.websiteId = sentWidget.websiteId;
+            let key;
+            for(key in sentWidget) {
+                if(sentWidget.hasOwnProperty(key)) {
+                    widget[key] = sentWidget[key];
+                }
+            }
+            // widget.name = sentWidget.name;
+            // widget.websiteId = sentWidget.websiteId;
         }
         res.json(widget);
     } else {

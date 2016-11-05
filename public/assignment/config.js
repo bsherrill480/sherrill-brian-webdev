@@ -1,4 +1,6 @@
 (function() {
+    'use strict';
+    
     function doConfig($routeProvider, $sceDelegateProvider) {
         var landingRoute = {
             templateUrl : '/assignment/user/login.view.client.html',

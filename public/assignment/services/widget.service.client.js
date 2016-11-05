@@ -10,7 +10,7 @@
                 return $http({
                     method: 'POST',
                     url: '/assignment/api/page/' + pageId + '/widget',
-                    data: website
+                    data: widget
                 }).then(function (payload) {
                     return payload.data;
                 });

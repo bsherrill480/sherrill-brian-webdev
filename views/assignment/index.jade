@@ -15,11 +15,19 @@ html
   body(ng-app="WebAppMaker")
     div(ng-view)
         p Loading...
+    script(src="https://code.jquery.com/jquery-3.1.1.js"
+    integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous")
+    script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+    integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+    crossorigin="anonymous")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js')
     script(src='/assignment/app.js')
     script(src='/assignment/config.js')
+    script(src='/assignment/directives/my-enter.js')
+    script(src='/assignment/directives/jga-directives.js')
     script(src='/assignment/services/page.service.client.js')
     script(src='/assignment/services/user.service.client.js')
     script(src='/assignment/services/website.service.client.js')

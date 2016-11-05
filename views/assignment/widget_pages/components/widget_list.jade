@@ -2,45 +2,16 @@ include ../../components/lists
 include widget_element_options
 
 mixin widget_list(controllerModelName)
-    div(ng-repeat="widget in " + controllerModelName + ".widgets")
-        //p {{widget.text}}
-        div(ng-switch="widget.widgetType")
-            div(ng-switch-when="HEADER")
-                ng-include(src="'/assignment/widget/widget-heading.view.client.html'")
-            div(ng-switch-when="IMAGE")
-                ng-include(src="'/assignment/widget/widget-image.view.client.html'")
-            div(ng-switch-when="YOUTUBE")
-                ng-include(src="'/assignment/widget/widget-youtube.view.client.html'")
-            div(ng-switch-when="HTML")
-                //p HTML {{widget.text}}
-                ng-include(src="'/assignment/widget/widget-html.view.client.html'")
+    div(sortable on-sort=controllerModelName + ".onSort(start, end)")
+        div(ng-repeat="widget in " + controllerModelName + ".widgets")
+            div(ng-switch="widget.widgetType")
+                div(ng-switch-when="HEADER")
+                    ng-include(src="'/assignment/widget/widget-heading.view.client.html'")
+                div(ng-switch-when="IMAGE")
+                    ng-include(src="'/assignment/widget/widget-image.view.client.html'")
+                div(ng-switch-when="YOUTUBE")
+                    ng-include(src="'/assignment/widget/widget-youtube.view.client.html'")
+                div(ng-switch-when="HTML")
+                    //p HTML {{widget.text}}
+                    ng-include(src="'/assignment/widget/widget-html.view.client.html'")
 
-//div.widget-item
-//    +widget_options("/assignment/widget-heading.html")
-//    h1 GIZMODO
-//
-//div.widget-item
-//    +widget_options("#")
-//    label Skeletor strikes again!
-//
-//div.widget-item
-//    +widget_options("/assignment/widget-image.html")
-//    img.img-responsive(src="https://media.giphy.com/media/9jVAv94PRzPoc/giphy-facebook_s.jpg")
-//
-//div.widget-item
-//    +widget_options("#")
-//    p.small Skeletor, the evil fiend has attack castle gray skull again. Will there ever be peace? Probably not as long as
-//        | there is tv show to be made.
-//
-//div.widget-item
-//    +widget_options("#")
-//    label Have you seen Prince Adam's hit new song?
-//
-//div.widget-item
-//    +widget_options("/assignment/widget-youtube.html")
-//    div.embed-responsive.embed-responsive-16by9
-//        iframe.embed-responsive-item(src="https://www.youtube.com/embed/ZZ5LpwO-An4" frameborder="0" allowfullscreen)
-//
-//div.widget-item
-//    +widget_options("#")
-//    p Check out He man as he rocks out. After listening to this song, you'll be in tear. 5/5 stars.

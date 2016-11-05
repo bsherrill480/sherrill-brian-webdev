@@ -12,9 +12,14 @@
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
             pageId = $routeParams['pid'];
-
+        
+        function onSort (obj) {
+            console.log("onSort", obj);
+        }
+        
         function init(widgets) {
             vm.widgets = widgets;
+            vm.onSort = onSort;
             // vm.widgets = WidgetService.findWidgetsByPageId(pageId);
             _.each(widgets, function (widget) {
                 if(widget.widgetType === 'HTML') { // so tempted to use underscore chain method
@@ -22,7 +27,7 @@
                 }
             });
         }
-    
+        
         vm.userId = userId;
         vm.websiteId = websiteId;
         vm.pageId = pageId;
@@ -62,7 +67,8 @@
         vm.websiteId = websiteId;
         vm.pageId = pageId;
         vm.widget = {
-            widgetType: widgetType
+            widgetType: widgetType,
+            pageId: pageId
         };
         vm.done = done;
     }
