@@ -7,10 +7,6 @@
         };
     }
 
-    // function redirToPages($location, userId, websiteId) {
-    //     $location.url('/user/' + userId + '/website/' + websiteId + '/page');
-    // }
-
     function PageListController($routeParams, PageService) {
         var vm = this,
             userId = $routeParams['uid'],
@@ -18,12 +14,10 @@
 
         function init(pages) {
             vm.pages = pages;
-            // vm.pages = PageService.findPagesByWebsiteId(websiteId);
         }
     
         vm.userId = userId;
         vm.websiteId = websiteId;
-        // init();
         PageService.findPagesByWebsiteId(websiteId).then(init);
     }
 
@@ -68,7 +62,6 @@
         }
 
         function init(page) {
-            // var page = PageService.findPageById(pageId);
             if(page) {
                 vm.page = _.clone(page);
             } else { // not found. We don't have a 404 page so lets do this.

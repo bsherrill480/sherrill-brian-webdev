@@ -13,16 +13,15 @@
             websiteId = $routeParams['wid'],
             pageId = $routeParams['pid'];
         
-        function onSort (obj) {
-            console.log("onSort", obj);
+        function onSort (start, end) {
+            WidgetService.changeWidgetPosition(pageId, start, end);
         }
         
         function init(widgets) {
             vm.widgets = widgets;
             vm.onSort = onSort;
-            // vm.widgets = WidgetService.findWidgetsByPageId(pageId);
-            _.each(widgets, function (widget) {
-                if(widget.widgetType === 'HTML') { // so tempted to use underscore chain method
+            _.each(widgets, function(widget) {
+                if(widget.widgetType === 'HTML') { // tempted to use underscore chain method
                     widget.textTrusted = $sce.trustAsHtml(widget.text);
                 }
             });
@@ -55,8 +54,6 @@
 
         function done(newWidget) {
             if(newWidget && (newWidget.text || newWidget.url)) {
-                // newWidget._id = String(Math.floor(Math.random() * 1000)); // make up a number
-                // for now
                 WidgetService.createWidget(pageId, newWidget).then(redirToWidgets);
             } else {
                 $window.alert('Widget not filled out.')
@@ -95,7 +92,6 @@
         }
 
         function init(widget) {
-            // var widget = WidgetService.findWidgetById(widgetId);
             if(widget) {
                 vm.widget = _.clone(widget);
             } else { // not found. We don't have a 404 page so lets do this.

@@ -4,24 +4,67 @@
     function WidgetService($http) {
         var api;
 
+        function createUpdateWidgetAbstract(method, url, widget) {
+            return $http({
+                method: method,
+                url: url,
+                data: widget
+            }).then(function (payload) {
+                return payload.data;
+            });
+        }
+
+        function updateWidgetCallback(widget, widgetId) {
+            return function () {
+                return createUpdateWidgetAbstract(
+                    'PUT',
+                    '/assignment/api/widget/' + widgetId,
+                    widget
+                );
+            };
+        }
+        function createWidgetCallback(widget, pageId) {
+            return function () {
+                return createUpdateWidgetAbstract(
+                    'POST',
+                    '/assignment/api/page/' + pageId + '/widget',
+                    widget
+                );
+            };
+        }
+
+        //pre: widget has upload. Check with widgetHasUpload(widget)
+        function uploadWidgetFile(widget) {
+            var formData;
+            formData = new FormData();
+            formData.append('upload', widget.upload);
+            return $http.post('/assignment/api/widget/upload', formData, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).then(function(payload) {
+                widget.url = payload.data.uploadUrl;
+            });
+        }
+
+        function widgetHasUpload(widget) {
+            return widget.upload && widget.upload.name;
+        }
+
         api = {
-            // adds the widget parameter instance to the local widgets array
             createWidget: function (pageId, widget) {
-                return $http({
-                    method: 'POST',
-                    url: '/assignment/api/page/' + pageId + '/widget',
-                    data: widget
-                }).then(function (payload) {
-                    return payload.data;
-                });
-                // widget.pageId = pageId;
-                // widgets.push(widget);
+                var createWidget = createWidgetCallback(widget, pageId);
+
+                if(widgetHasUpload(widget)) {
+                    return uploadWidgetFile(widget).then(createWidget)
+                } else {
+                    return createWidget();
+                }
             },
 
             findWidgetsByPageId: function (pageId) {
                 return $http({
                     method: 'GET',
-                    url: '/assignment/api/page/' + pageId + '/widget',
+                    url: '/assignment/api/page/' + pageId + '/widget'
                 }).then(function (payload) {
                     return payload.data;
                 });
@@ -34,27 +77,16 @@
                 }).then(function (payload) {
                     return payload.data;
                 });
-                // return _.find(widgets, function (widget) {
-                //     return widgetId === widget._id;
-                // });
             },
 
-            // takes passed widget and keep it for internal use.
             updateWidget: function (widgetId, widget) {
-                return $http({
-                    method: 'PUT',
-                    url: '/assignment/api/widget/' + widgetId,
-                    data: widget
-                }).then(function (payload) {
-                    return payload.data;
-                });
-                // var widgetIndex = _.findIndex(widgets, function (loopedWidget) {
-                //     return loopedWidget._id === widgetId;
-                // });
-                // if(widgetIndex !== -1) {
-                //     widget._id = widgetId;
-                //     widgets[widgetIndex] = widget;
-                // }
+                var updateWidget = updateWidgetCallback(widget, widgetId);
+
+                if(widgetHasUpload(widget)) {
+                    return uploadWidgetFile(widget).then(updateWidget)
+                } else {
+                    return updateWidget();
+                }
             },
 
             deleteWidget: function (widgetId) {
@@ -62,9 +94,17 @@
                     method: 'DELETE',
                     url: '/assignment/api/widget/' + widgetId
                 });
-                // _.remove(widgets, function (widget) {
-                //     return widget._id === widgetId;
-                // })
+            },
+            
+            changeWidgetPosition(pageId, start, end) {
+                return $http({
+                    method: 'PUT',
+                    url: '/assignment/api/page/' + pageId + '/widget',
+                    data: {
+                        start: start,
+                        end: end
+                    }
+                });
             }
         };
         return api;

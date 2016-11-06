@@ -5,6 +5,10 @@
 const express = require('express'),
     _ = require('lodash'),
     router = express.Router(),
+    fs = require('fs'),
+    multer = require('multer'),
+    UPLOADS_FOLDER = 'uploads',
+    upload = multer({dest: `public/${UPLOADS_FOLDER}/`}),
     widgets = [
         { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
         { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
@@ -79,9 +83,47 @@ router.post('/page/:pageId/widget', function (req, res, next) {
     widgets.push()
 });
 
+router.put('/page/:pageId/widget', function (req, res, next) {
+    let positionInfo = req.body,
+        start = positionInfo.start,
+        end = positionInfo.end,
+        movedItem,
+        i;
+    
+    if(_.isInteger(start) && _.isInteger(end) && start >= 0 && end < widgets.length) {
+        if (start < end) {
+            // shift all elements between [start + 1, end] down by 1
+            // note: loop doesn't assign anything to widgets[end]
+            movedItem = widgets[start];
+            for (i = start + 1; i <= end; i++) {
+                widgets[i - 1] = widgets[i];
+            }
+            widgets[end] = movedItem; // now assign widgets[end]
+        } else if (start > end) {
+            // shift all elements between [end, start - 1] up by 1
+            // note: loop doesn't assign anything to widgets[end]
+            // note: loop is traversing end to front
+            movedItem = widgets[start];
+            for (i = start; i >= end + 1; i--) {
+                widgets[i] = widgets[i - 1];
+            }
+            widgets[end] = movedItem; // now assign widgets[end]
+        }
+        res.send();
+    } else {
+        res.status(400).send('Invalid start or end');
+    }
+});
+
 router.get('/widget/:widgetId', function (req, res, next) {
     let widgetId = req.params.widgetId;
     findWidgetResponse(req, res, next, (widget) => {return widget._id === widgetId;});
+});
+
+router.post('/widget/upload', upload.single('upload'), function (req, res, next) {
+    res.json({
+        uploadUrl: `/${UPLOADS_FOLDER}/${req.file.filename}`
+    });
 });
 
 router.put('/widget/:widgetId', function (req, res, next) {
@@ -95,8 +137,6 @@ router.put('/widget/:widgetId', function (req, res, next) {
                     widget[key] = sentWidget[key];
                 }
             }
-            // widget.name = sentWidget.name;
-            // widget.websiteId = sentWidget.websiteId;
         }
         res.json(widget);
     } else {

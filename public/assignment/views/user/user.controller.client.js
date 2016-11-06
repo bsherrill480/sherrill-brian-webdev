@@ -64,13 +64,7 @@
                 UserService.updateUser(userId, user)
                     .catch(function () {
                         $window.alert('Unable to save');
-                    })
-                $http({
-                    method: 'POST',
-                    data: {
-                        image: vm.upload
-                    }
-                })
+                    });
             } else {
                 $window.alert('Please check profile ');
             }

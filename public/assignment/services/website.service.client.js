@@ -4,7 +4,6 @@
     function WebsiteService($http) {
         var api;
         api = {
-            // adds the website parameter instance to the local websites array
             createWebsite: function (userId, website) {
                 return $http({
                     method: 'POST',
@@ -33,7 +32,6 @@
                 });
             },
 
-            // takes passed website and keep it for internal use.
             updateWebsite: function (websiteId, website) {
                 return $http({
                     method: 'PUT',

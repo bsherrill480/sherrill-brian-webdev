@@ -4,11 +4,7 @@
     function PageService($http) {
         var api;
         api = {
-            // adds the page parameter instance to the local pages array
             createPage: function (websiteId, page) {
-                // page.websiteId = websiteId;
-                // pages.push(page);
-                // page.websiteId = websiteId;
                 return $http({
                     method: 'POST',
                     url: '/assignment/api/website/' + websiteId + '/page',
@@ -34,7 +30,6 @@
                 });
             },
 
-            // takes passed page and keep it for internal use.
             updatePage: function (pageId, page) {
                 return $http({
                     method: 'PUT',

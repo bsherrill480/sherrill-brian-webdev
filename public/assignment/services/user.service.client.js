@@ -4,7 +4,6 @@
     function UserService($http) {
         var api;
         api = {
-            // adds the user parameter instance to the local users array
             createUser: function (user) {
                 return $http({
                     method: 'POST',

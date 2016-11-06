@@ -91,7 +91,6 @@ function userIsValid(user) {
 router.get('/user', function (req, res, next) {
     let username = req.query.username,
         password = req.query.password;
-    console.log("req.query:", req.query);
     if(username && password) {
         findUserResponse(req, res, next,
             (user) => {return user.username === username && user.password === password;});
@@ -105,7 +104,6 @@ router.get('/user', function (req, res, next) {
 
 router.post('/user', function (req, res, next) {
     let sentUser = req.body;
-    console.log("sentUser:", sentUser);
     // basic validation, not secure at all
     if(userIsValidNoId(sentUser)) {
         let user = getUserObj(sentUser, userIdCounter.getCountAndIncrement());
@@ -124,7 +122,6 @@ router.get('/user/:userId', function (req, res, next) {
 
 router.put('/user/:userId', function (req, res, next) {
     let sentUser = req.body;
-    console.log('put:', sentUser);
     if(userIsValid(sentUser)) {
         let user= _.find(users, (user) => {return user._id === sentUser._id;});
         if(user) {

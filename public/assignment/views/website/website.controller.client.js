@@ -7,10 +7,6 @@
         };
     }
 
-    // function redirToWebsites($location, userId) {
-    //     $location.url('/user/' + userId + '/website');
-    // }
-
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this,
             userId = $routeParams['uid'];
