@@ -8,6 +8,9 @@ const express = require('express'),
     ifUndefinedThenDefault = servicesUtil.ifUndefinedThenDefault,
     ifHasAttrThenIsString = servicesUtil.ifHasAttrThenIsString,
     router = express.Router(),
+    models = require('../../../mongoose/model/models.server'),
+    userModelAPI = models.user;
+
     users = [
         {
             _id: '123',
@@ -91,52 +94,73 @@ function userIsValid(user) {
 router.get('/user', function (req, res, next) {
     let username = req.query.username,
         password = req.query.password;
-    if(username && password) {
-        findUserResponse(req, res, next,
-            (user) => {return user.username === username && user.password === password;});
-    } else if(username) {
-        findUserResponse(req, res, next,
-            (user) => {return user.username === username;});
+    if(username){
+        let userQuery;
+        if(username && password) {
+            userQuery = userModelAPI.findUserByCredentials(username, password);
+            // userModelAPI.findUserByCredentials(username, password)
+            //     .then(function (user) {
+            //         console.log("found user ", user);
+            //         res.json(user);
+            //     })
+            //     .catch(function (err) {
+            //         console.log("find user error")
+            //     });
+            // findUserResponse(req, res, next,
+            //     (user) => {return user.username === username && user.password === password;});
+        } else if(username) {
+            userQuery = userModelAPI.findUserByUsername(username);
+            // findUserResponse(req, res, next,
+            //     (user) => {return user.username === username;});
+        }
+        userQuery.then(servicesUtil.set404IfEmpty(res));
+        servicesUtil.queryResponse(res, userQuery);
     } else {
         res.status('400').send('Missing parameters');
     }
 });
 
 router.post('/user', function (req, res, next) {
-    let sentUser = req.body;
-    // basic validation, not secure at all
-    if(userIsValidNoId(sentUser)) {
-        let user = getUserObj(sentUser, userIdCounter.getCountAndIncrement());
-        users.push(user);
-        res.json(user);
-    } else {
-        res.status(400).send('Invalid User');
-    }
-    users.push()
+    let user = req.body;
+    servicesUtil.queryResponse(res,  userModelAPI.createUser(user));
+    // let sentUser = req.body;
+    // // basic validation, not secure at all
+    // if(userIsValidNoId(sentUser)) {
+    //     let user = getUserObj(sentUser, userIdCounter.getCountAndIncrement());
+    //     users.push(user);
+    //     res.json(user);
+    // } else {
+    //     res.status(400).send('Invalid User');
+    // }
+    // users.push()
 });
 
 router.get('/user/:userId', function (req, res, next) {
-    let userId = req.params.userId;
-    findUserResponse(req, res, next, (user) => {return user._id === userId;});
+    servicesUtil.queryResponse(res,  userModelAPI.findUserById(userId));
+    // let userId = req.params.userId;
+    // findUserResponse(req, res, next, (user) => {return user._id === userId;});
 });
 
 router.put('/user/:userId', function (req, res, next) {
-    let sentUser = req.body;
-    if(userIsValid(sentUser)) {
-        let user= _.find(users, (user) => {return user._id === sentUser._id;});
-        if(user) {
-            _.assign(user, getUserObj(sentUser));
-        }
-        res.json(user);
-    } else {
-        res.status(400).send('Invalid User');
-    }
+    console.log("TODO");
+    // let sentUser = req.body;
+    // if(userIsValid(sentUser)) {
+    //     let user= _.find(users, (user) => {return user._id === sentUser._id;});
+    //     if(user) {
+    //         _.assign(user, getUserObj(sentUser));
+    //     }
+    //     res.json(user);
+    // } else {
+    //     res.status(400).send('Invalid User');
+    // }
 });
 
 router.delete('/user/:userId', function (req, res, next) {
     let userId = req.params.userId;
-    _.remove(users, (user) => {return user._id === userId;});
-    res.send();
+    userModelAPI.deleteUser(userId).then(() => {res.send()});
+    // let userId = req.params.userId;
+    // _.remove(users, (user) => {return user._id === userId;});
+    // res.send();
 });
 
 
