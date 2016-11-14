@@ -57,10 +57,16 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.locals.doubleLCurly = '{{';
-app.locals.doubleRCurly = '}}';
-// app.locals.wrapDoubleCurly = function (text) {
-//   return '{{' + text + '}}';
-// };
+const mongoose = require('mongoose');
+let connectionString;
+if(process.env.NODE_ENV == 'DEV') {
+  connectionString = 'mongodb://localhost/sherrill-brian-webdev'
+} else {
+  connectionString = 'mongodb://admin:test1234@ds033046.mlab.com:33046/sherrill-brian-webdev';
+}
+console.log(process.env.NODE_ENV);
+console.log("CONNECTION STIRNG: ", connectionString);
+mongoose.connect(connectionString);
+mongoose.Promise = require('bluebird');
 
 module.exports = app;

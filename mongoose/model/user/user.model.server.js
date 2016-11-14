@@ -2,9 +2,6 @@ const userSchema = require('./user.schema.server'),
     mongoose = require('mongoose'),
     User = mongoose.model('User', userSchema);
 
-mongoose.Promise = require('bluebird');
-
-
 //all functions return promises
 module.exports = {
     createUser(newUser) {
@@ -24,10 +21,11 @@ module.exports = {
         return User.findOne({username, password}).exec();
     },
 
+    updateUser(userId, user) {
+        return User.findByIdAndUpdate(userId, user).exec();
+    },
+
     deleteUser(userId) {
-        function removeUser(user) {
-            user.remove();
-        }
-        return this.findUserById(userId).then(removeUser);
+        return User.findByIdAndRemove(userId).exec();
     }
 };
