@@ -3,5 +3,10 @@ div.row.header-padding
         form
             div.form-group
                 label HTML
-                input.form-control(type="text" ng-model="model.widget.text")
+                //input.form-control(type="text" ng-model="model.widget.text")
+                div(ng-model="model.widget.text"
+                text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline'," +
+                "'strikeThrough']," +
+                "['ul', 'ol'], ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull']," +
+                "['indent', 'outdent'], ['html']]")
 

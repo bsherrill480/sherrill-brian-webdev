@@ -14,4 +14,6 @@ mixin widget_list(controllerModelName)
                 div(ng-switch-when="HTML")
                     //p HTML {{widget.text}}
                     ng-include(src="'/assignment/widget/widget-html.view.client.html'")
-
+                div(ng-switch-when="TEXT")
+                    //p HTML {{widget.text}}
+                    ng-include(src="'/assignment/widget/widget-text.view.client.html'")

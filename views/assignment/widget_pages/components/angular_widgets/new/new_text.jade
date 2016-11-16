@@ -1,0 +1,15 @@
+div.row.header-padding
+    div.col-sm-12
+        form
+            div.form-group
+                label Text
+                input.form-control(type="text" ng-model="model.widget.text")
+            div.form-group
+                label Rows
+                input.form-control(type="number" ng-model="model.widget.rows")
+            div.form-group
+                label Placeholder
+                input.form-control(type="text" ng-model="model.widget.placeholder")
+            div.form-group
+                label Formatted
+                input(type="checkbox" ng-model="model.widget.formatted")

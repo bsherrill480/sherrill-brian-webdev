@@ -43,6 +43,10 @@ router.get('/widget-html.view.client.html', function (req, res, next) {
     res.render('assignment/widget_pages/components/angular_widgets/display/display_html');
 });
 
+router.get('/widget-text.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/display/display_text');
+});
+
 //new
 
 router.get('/new-widget-heading.view.client.html', function (req, res, next) {
@@ -59,6 +63,10 @@ router.get('/new-widget-youtube.view.client.html', function (req, res, next) {
 
 router.get('/new-widget-html.view.client.html', function (req, res, next) {
     res.render('assignment/widget_pages/components/angular_widgets/new/new_html');
+});
+
+router.get('/new-widget-text.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/new/new_text');
 });
 
 //edit
@@ -79,5 +87,8 @@ router.get('/edit-widget-html.view.client.html', function (req, res, next) {
     res.render('assignment/widget_pages/components/angular_widgets/edit/edit_html');
 });
 
+router.get('/edit-widget-text.view.client.html', function (req, res, next) {
+    res.render('assignment/widget_pages/components/angular_widgets/edit/edit_text');
+});
 module.exports = router;
 

@@ -4,7 +4,7 @@ const mongoose = require('mongoose'),
             _page: {type: Schema.Types.ObjectId, ref: 'Page'},
             widgetType: {
                 type: String,
-                enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT'],
+                enum: ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT', 'TEXT'],
                 required: true
             },
             name: String,

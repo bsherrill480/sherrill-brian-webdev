@@ -21,6 +21,8 @@ block widget-content
             ng-include(src="'/assignment/widget/new-widget-youtube.view.client.html'")
         div(ng-switch-when="HTML")
             ng-include(src="'/assignment/widget/new-widget-html.view.client.html'")
+        div(ng-switch-when="TEXT")
+            ng-include(src="'/assignment/widget/new-widget-text.view.client.html'")
 
 block widget-footer
     include components/list_and_user_icon_footer
