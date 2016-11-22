@@ -34,11 +34,11 @@
                 });
             },
 
-            findUserByCredentials: function (username, password) {
+            loginUserByCredentials: function (username, password) {
                 return $http({
-                    method: 'GET',
-                    url: '/assignment/api/user' ,
-                    params: {
+                    method: 'POST',
+                    url: '/assignment/api/login' ,
+                    data: {
                         username: username,
                         password: password
                     }

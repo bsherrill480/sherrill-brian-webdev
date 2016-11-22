@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
 var routes = require('./routes/index');
 var assignment = require('./routes/assignment');
-
+var auth = require('./auth');
+var expressSession = require('express-session');
 var app = express();
 
 // view engine setup
@@ -21,6 +22,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(expressSession({
+  secret: 'keyboard cat', // in prod this should be an ENV variable
+  resave: false,
+  saveUninitialized: false
+}));
+passport.serializeUser(auth.serializeUser);
+passport.deserializeUser(auth.deserializeUser);
+passport.use(auth.localStrategy);
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('/', routes);
 app.use('/assignment', assignment);
@@ -59,7 +72,7 @@ app.use(function(err, req, res, next) {
 
 const mongoose = require('mongoose');
 let connectionString;
-if(process.env.NODE_ENV == 'DEV') {
+if(process.env.NODE_ENV === 'development') {
   connectionString = 'mongodb://localhost/sherrill-brian-webdev'
 } else {
   connectionString = 'mongodb://admin:test1234@ds033046.mlab.com:33046/sherrill-brian-webdev';

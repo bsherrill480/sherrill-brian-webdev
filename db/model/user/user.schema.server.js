@@ -12,4 +12,8 @@ const mongoose = require('mongoose'),
         timestamps: true
     });
 
+userSchema.methods.isValidPassword = function (password) {
+    return this.password === password;
+};
+
 module.exports = userSchema;

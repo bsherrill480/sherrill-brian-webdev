@@ -8,7 +8,7 @@ const express = require('express'),
     ifUndefinedThenDefault = servicesUtil.ifUndefinedThenDefault,
     ifHasAttrThenIsString = servicesUtil.ifHasAttrThenIsString,
     router = express.Router(),
-    models = require('../../../mongoose/model/models.server'),
+    models = require('../../../db/model/models.server'),
     pageAPI = models.pageAPI;
     // pages = [
     //     { "_id": "321", "name": "Post 1", "websiteId": "456", "title": ""},

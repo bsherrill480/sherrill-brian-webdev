@@ -9,69 +9,13 @@ const express = require('express'),
     servicesUtil = require('./util'),
     multer = require('multer'),
     UPLOADS_FOLDER = 'uploads',
-    models = require('../../../mongoose/model/models.server'),
+    models = require('../../../db/model/models.server'),
     widgetAPI = models.widgetAPI,
     upload = multer({dest: `public/${UPLOADS_FOLDER}/`});
-    // widgets = [
-    //     { "_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
-    //     { "_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-    //     { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-    //         "url": "http://lorempixel.com/400/200/"},
-    //     { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"},
-    //     { "_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
-    //     { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-    //         "url": "https://www.youtube.com/embed/AM2Ivdi9c4E" },
-    //     { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
-    // ];
-
-// let widgetIdCounter = {
-//     _count: 1000,
-//     getCountAndIncrement() {
-//         let oldCount = this._count;
-//         this._count++;
-//         return String(oldCount);
-//     }
-// };
-
-// // widget object is schemaless so I can't say for sure what is has unless I enumerate on
-// // widgetType. For sake of simplicity I'll just copy over what's passed, but in production
-// // it should actually be enumerated.
-// function getWidgetObj(someObject, _id) {
-//     let widget = _.assign({}, someObject);
-//     if(_id) {
-//         widget._id = _id;
-//     }
-//     return widget
-// }
-//
-// function findWidgetResponse(req, res, next, predicate) {
-//     let widget = _.find(widgets, (widget) => {return predicate(widget);});
-//
-//     if(widget) {
-//         res.json(widget);
-//     } else {
-//         res.status(404).send('Widget Not Found');
-//     }
-// }
-//
-// // see widget is valid
-// function widgetIsValidNoId(widget) {
-//     return widget.widgetType && widget.pageId;
-// }
-//
-// // widget object is schemaless so I can't say for sure what is has unless I enumerate on
-// // widgetType. For sake of simplicity I'll just check values in common.
-// function widgetIsValid(widget) {
-//     return widget._id && widgetIsValidNoId(widget);
-// }
-
 
 router.get('/page/:pageId/widget', function (req, res, next) {
     let pageId = req.params.pageId;
     servicesUtil.queryResponse(res, widgetAPI.findAllWidgetsForPage(pageId));
-    // res.json(_.filter(widgets, function (widget) {
-    //     return pageId == widget.pageId;
-    // }));
 });
 
 router.post('/page/:pageId/widget', function (req, res, next) {

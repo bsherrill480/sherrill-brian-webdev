@@ -6,7 +6,7 @@ const express = require('express'),
     _ = require('lodash'),
     router = express.Router(),
     servicesUtil = require('./util'),
-    models = require('../../../mongoose/model/models.server'),
+    models = require('../../../db/model/models.server'),
     websiteAPI = models.websiteAPI;
 
 router.get('/user/:userId/website', function (req, res, next) {

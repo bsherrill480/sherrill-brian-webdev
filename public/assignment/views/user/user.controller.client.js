@@ -7,7 +7,7 @@
         function login(userCred) {
             var promise;
             userCred = userCred || {};
-            promise = UserService.findUserByCredentials(userCred.username, userCred.password);
+            promise = UserService.loginUserByCredentials(userCred.username, userCred.password);
             promise
                 .then(function (user) {
                     $location.url("/user/" + user._id);
