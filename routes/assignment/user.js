@@ -3,7 +3,8 @@
  * Created by brian on 10/13/16.
  */
 const express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    util = require('./util');
 
 router.get('/login.view.client.html', function (req, res, next) {
     res.render('assignment/user_pages/login');

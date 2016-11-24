@@ -1,13 +1,18 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    findOrCreate = require('mongoose-findorcreate'),
     userSchema = new Schema({
-    username: String,
-    password: String,
-    firstName: String,
-    lastName: String,
-    email: String,
-    phone: String,
-    websites: [{type: Schema.Types.ObjectId, ref: 'Website'}],
+        username: {type: String, default: ''},
+        password: {type: String, default: 'someTrueRandomValueGeneratedAtInsert?'},
+        firstName: {type: String, default: ''},
+        lastName: {type: String, default: ''},
+        email: {type: String, default: ''},
+        phone: {type: String, default: ''},
+        websites: [{type: Schema.Types.ObjectId, ref: 'Website'}],
+        facebook: {
+            id: String,
+            token: String
+        }
     }, {
         timestamps: true
     });
@@ -15,5 +20,7 @@ const mongoose = require('mongoose'),
 userSchema.methods.isValidPassword = function (password) {
     return this.password === password;
 };
+
+userSchema.plugin(findOrCreate);
 
 module.exports = userSchema;

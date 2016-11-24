@@ -7,7 +7,7 @@
             createUser: function (user) {
                 return $http({
                     method: 'POST',
-                    url: '/assignment/api/user',
+                    url: '/assignment/api/register',
                     data: user
                 }).then(function (payload) {
                     return payload.data;
@@ -45,6 +45,13 @@
                 }).then(function (payload) {
                     return payload.data;
                 });
+            },
+            
+            logoutUser: function () {
+                return $http({
+                    method: 'POST',
+                    url: '/assignment/api/logout'
+                })
             },
 
             updateUser: function (userId, user) {

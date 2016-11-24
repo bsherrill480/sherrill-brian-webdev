@@ -1,5 +1,20 @@
 (function() {
     'use strict';
+
+    function checkLoggedIn($q, $route, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/assignment/api/loggedin').then(function(payload) {
+            var userId = payload.data,
+                urlUserId = $route.current.params['uid'];
+            if (urlUserId === userId) {
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('/');
+            }
+        });
+        return deferred.promise;
+    }
     
     function doConfig($routeProvider, $sceDelegateProvider) {
         var landingRoute = {
@@ -28,7 +43,10 @@
             .when('/user/:uid', {
                 templateUrl: '/assignment/user/profile.view.client.html',
                 controller: 'ProfileController',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    loggedin: checkLoggedIn
+                }
             })
             .when('/user/:uid/website', {
                 templateUrl: '/assignment/website/website-list.view.client.html',

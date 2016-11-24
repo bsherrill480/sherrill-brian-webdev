@@ -9,38 +9,55 @@ const express = require('express'),
     models = require('../../../db/model/models.server'),
     userAPI = models.userAPI,
     passport = require('passport');
-router.post('/login', passport.authenticate('local', {}));
 
-// router.get('/user', function (req, res, next) {
-//     let username = req.query.username,
-//         password = req.query.password;
-//     if(username){
-//         let userQuery;
-//         // if(username && password) {
-//         //     userQuery = userAPI.findUserByCredentials(username, password);
-//         // } else if(username) {
-//             userQuery = userAPI.findUserByUsername(username);
-//         // }
-//         userQuery.then(servicesUtil.set404IfEmpty(res));
-//         servicesUtil.queryResponse(res, userQuery);
-//     } else {
-//         res.status('400').send('Missing parameters');
-//     }
-// });
+function getLoginUserThenSendResponseCallback(req, res) {
+    return function (user) {
+        req.login(user, function (err) {
+            if(err) {
+                res.status(400).send(err);
+            } else {
+                res.json(user)
+            }
+        });
+        console.log("beforeReturn", user);
+        return user;
+    };
+}
 
 router.post('/login', passport.authenticate('local'), function (req, res, next) {
     res.status(req.isAuthenticated() ? 200 : 404).json(req.user);
 });
+
 router.post('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    req.send();
 });
 
-
-router.post('/user', function (req, res, next) {
-    let user = req.body;
-    servicesUtil.queryResponse(res, userAPI.createUser(user));
+router.post('/register', function (req, res, next) {
+    let user = req.body,
+        loginUser = getLoginUserThenSendResponseCallback(req, res);
+    // res.send();
+    userAPI.createUser(user).then(loginUser);
+    // userAPI.createUser(user);
 });
+
+router.get('/loggedin', function (req, res, next) {
+    // console.log("loggedin",req.isAuthenticated() ? 'isLoggedIn' : 'notIsLoggedIn', req.user, 'id: ', req.user._id);
+    res.send(req.isAuthenticated() ? req.user._id : '');
+});
+
+// Redirect the user to Facebook for authentication.  When complete,
+// Facebook will redirect the user back to the application at
+//     /auth/facebook/callback
+router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+// Facebook will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+router.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: 'http://localhost:3000/assignment/#/user',
+                                      failureRedirect: 'http://localhost:3000/assignment/#/login' }));
 
 router.get('/user/:userId', function (req, res, next) {
     let userId = req.params.userId;

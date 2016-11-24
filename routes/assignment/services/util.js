@@ -36,7 +36,6 @@ module.exports = {
         let queryFailedResponse = this.queryFailedCallback(res);
         queryPromise
             .then(function(result) {
-                console.log('got payload', result);
                 res.json(result)
             })
             .catch(queryFailedResponse);

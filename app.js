@@ -31,6 +31,7 @@ app.use(expressSession({
 passport.serializeUser(auth.serializeUser);
 passport.deserializeUser(auth.deserializeUser);
 passport.use(auth.localStrategy);
+passport.use(auth.facebookStrategy);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -77,8 +78,6 @@ if(process.env.NODE_ENV === 'development') {
 } else {
   connectionString = 'mongodb://admin:test1234@ds033046.mlab.com:33046/sherrill-brian-webdev';
 }
-console.log(process.env.NODE_ENV);
-console.log("CONNECTION STIRNG: ", connectionString);
 mongoose.connect(connectionString);
 mongoose.Promise = require('bluebird');
 

@@ -1,6 +1,7 @@
 const userSchema = require('./user.schema.server'),
     mongoose = require('mongoose'),
-    User = mongoose.model('User', userSchema);
+    User = mongoose.model('User', userSchema),
+    Promise = require('bluebird');
 
 //all functions return promises
 module.exports = {
@@ -27,5 +28,30 @@ module.exports = {
 
     deleteUser(userId) {
         return User.findByIdAndRemove(userId).exec();
+    },
+
+    findOrCreate(user) {
+        // return User.findOrCreate(user).exec();
+        // should replace with my own func so I can return real promise
+        let promise = new Promise();
+        User.findOne(user).then(function (returnedUser) {
+            if(returnedUser) {
+                promise.resolve(returnedUser);
+            } else {
+                User.createUser(user)
+                    .then(function (createdUser) {
+                        promise.resolve(createdUser)
+                    })
+                    .catch(function (err) {
+                        promise.reject(err);
+                    })
+            }
+            return null;
+        });
+        return promise
+    },
+
+    findUserByFacebookId(facebookId) {
+        return User.findOne({'facebook.id': facebookId}).exec();
     }
 };
