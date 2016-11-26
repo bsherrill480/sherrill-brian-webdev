@@ -23,7 +23,7 @@
 
     function RegisterController($location, $window, UserService) {
         var vm = this;
-        
+
         function register(userCred) {
             var promise,
                 user;
@@ -47,16 +47,26 @@
                 $window.alert("Unable to login");
             }
         }
-
         vm.register = register;
     }
     
-    function ProfileController($routeParams, $window, UserService) {
+    function ProfileController($routeParams, $window, $location, UserService) {
         var vm = this,
             userId = $routeParams["uid"];
         
         function init(user) {
             vm.user = user;
+        }
+
+        function logout() {
+            UserService
+                .logoutUser()
+                .then(function () {
+                    $location.url("/login");
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         }
         
         function update(user) {
@@ -73,10 +83,23 @@
         vm.validation = {
             emailValid: false
         };
-        
+
+        vm.logout = logout;
         vm.userId = userId;
         vm.update = update;
         UserService.findUserById(userId).then(init);
+    }
+
+    function RedirectToUserPageController($location, UserService) {
+        UserService
+            .getUserId()
+            .then(function (userId) {
+                if(userId) {
+                    $location.url('/user/' + userId);
+                } else {
+                    $location.url('/login');
+                }
+            });
     }
 
     angular
@@ -88,6 +111,10 @@
         )
         .controller(
             'ProfileController', 
-            ['$routeParams', '$window', 'UserService', ProfileController]
+            ['$routeParams', '$window', '$location', 'UserService', ProfileController]
+        )
+        .controller(
+            'RedirectToUserPageController',
+            ['$location', 'UserService', RedirectToUserPageController]
         );
 })();

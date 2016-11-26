@@ -30,25 +30,30 @@ module.exports = {
         return User.findByIdAndRemove(userId).exec();
     },
 
+    findUser: function (user) {
+        return User.findOne(user).exec();
+    },
+
     findOrCreate(user) {
-        // return User.findOrCreate(user).exec();
-        // should replace with my own func so I can return real promise
-        let promise = new Promise();
-        User.findOne(user).then(function (returnedUser) {
-            if(returnedUser) {
-                promise.resolve(returnedUser);
-            } else {
-                User.createUser(user)
-                    .then(function (createdUser) {
-                        promise.resolve(createdUser)
-                    })
-                    .catch(function (err) {
-                        promise.reject(err);
-                    })
-            }
-            return null;
+        return new Promise((resolve, reject) => {
+            this.findUser(user)
+                .then((returnedUser) => {
+                    if(returnedUser) {
+                        resolve(returnedUser);
+                    } else {
+                        this.createUser(user)
+                            .then((createdUser) => {
+                                resolve(createdUser)
+                            })
+                            .catch(function (err) {
+                                reject(err);
+                            })
+                    }
+                })
+                .catch(function (err) {
+                    reject(err);
+                });
         });
-        return promise
     },
 
     findUserByFacebookId(facebookId) {

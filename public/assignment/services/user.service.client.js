@@ -67,6 +67,16 @@
                     method: 'DELETE',
                     url: '/assignment/api/user/' + userId
                 });
+            },
+            
+            //returns userId if user is logged in, else returns an emtpy string
+            getUserId: function () {
+                return $http({
+                    method: 'GET',
+                    url: '/assignment/api/loggedin'
+                }).then(function(payload) {
+                    return payload.data; // payload.data = userId
+                });
             }
         };
         return api;

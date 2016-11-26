@@ -40,6 +40,10 @@
                 controller: 'RegisterController',
                 controllerAs: 'model'
             })
+            .when('/user/', {
+                template: '',
+                controller: 'RedirectToUserPageController'
+            })
             .when('/user/:uid', {
                 templateUrl: '/assignment/user/profile.view.client.html',
                 controller: 'ProfileController',

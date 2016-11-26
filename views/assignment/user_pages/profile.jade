@@ -27,7 +27,7 @@ block content
                             id="profile-first-last")
                         a.btn.btn-primary.btn-block(
                         ng-href="#/user/{{model.userId}}/website/") Websites
-                        a.btn.btn-danger.btn-block(href="#/login") Logout
+                        div.btn.btn-danger.btn-block(ng-click="model.logout()") Logout
 //- Using website-header and footer styling until it's more clear what I need to do.
 //- i.e. should I rename it to blue-head and blue-footer or should profile get its own styling.
 block header

@@ -30,7 +30,7 @@ router.post('/login', passport.authenticate('local'), function (req, res, next) 
 
 router.post('/logout', function (req, res) {
     req.logout();
-    req.send();
+    res.send();
 });
 
 router.post('/register', function (req, res, next) {
