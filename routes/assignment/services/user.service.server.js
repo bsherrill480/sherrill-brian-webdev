@@ -25,7 +25,7 @@ function getLoginUserThenSendResponseCallback(req, res) {
 }
 
 router.post('/login', passport.authenticate('local'), function (req, res, next) {
-    res.status(req.isAuthenticated() ? 200 : 404).json(req.user);
+    res.json(req.user);
 });
 
 router.post('/logout', function (req, res) {
@@ -36,9 +36,7 @@ router.post('/logout', function (req, res) {
 router.post('/register', function (req, res, next) {
     let user = req.body,
         loginUser = getLoginUserThenSendResponseCallback(req, res);
-    // res.send();
     userAPI.createUser(user).then(loginUser);
-    // userAPI.createUser(user);
 });
 
 router.get('/loggedin', function (req, res, next) {

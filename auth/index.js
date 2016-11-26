@@ -8,10 +8,12 @@ let PassportLocalStategy = require('passport-local'),
     facebookStrategy;
 
 serializeUser = function (user, done) {
+    console.log("serializeUser", user);
     done(null, user._id);
 };
 
 deserializeUser = function (id, done) {
+    console.log("deserializeUser", id);
     userAPI
         .findUserById(id)
         .then(function (returnedUser) {
@@ -28,20 +30,23 @@ localStrategy = new PassportLocalStategy({
     userNameField: 'email',
     passwordField: 'password'
 }, function(username, password, done) {
+    console.log("localStrat");
     userAPI
-        .findUserByCredentials(username, password)
+        .findUserByUsername(username)
         .then(function(user) {
-            console.log("user:", user);
+            console.log("localStrat user:", user);
             if (!user) {
                 done(null, false, { message: 'Incorrect username.' });
+            } else {
+                console.log("userIsValidPassword", user.isValidPassword);
+                if (!user.isValidPassword(password)) {
+                    done(null, false, {message: 'Incorrect password.'});
+                }
+                done(null, user);
             }
-            console.log("userIsValidPassword", user.isValidPassword);
-            if (!user.isValidPassword(password)) {
-                done(null, false, { message: 'Incorrect password.' });
-            }
-            done(null, user);
         })
         .catch(function (err) {
+            console.log("localStrat err", err);
             done(err);
         });
 });

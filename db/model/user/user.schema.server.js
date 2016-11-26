@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
+    bcrypt = require('bcrypt-nodejs'),
     Schema = mongoose.Schema,
-    findOrCreate = require('mongoose-findorcreate'),
     userSchema = new Schema({
         username: {type: String, default: ''},
         password: {type: String, default: 'someTrueRandomValueGeneratedAtInsert?'},
@@ -17,10 +17,15 @@ const mongoose = require('mongoose'),
         timestamps: true
     });
 
+// In real use, we'd want to salt these.
 userSchema.methods.isValidPassword = function (password) {
-    return this.password === password;
+    // return this.password === password;
+    return bcrypt.compareSync(password, this.password);
 };
 
-userSchema.plugin(findOrCreate);
+// this is a static method, but we'll attach it to the model to keep it convenient.
+userSchema.methods.hashPassword = function (password) {
+    return bcrypt.hashSync(password);
+};
 
 module.exports = userSchema;

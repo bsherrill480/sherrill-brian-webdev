@@ -7,6 +7,7 @@ const userSchema = require('./user.schema.server'),
 module.exports = {
     createUser(newUser) {
         const user = new User(newUser);
+        user.password = user.hashPassword(user.password);
         return user.save();
     },
 
@@ -16,10 +17,6 @@ module.exports = {
 
     findUserByUsername(username) {
         return User.findOne({username}).exec();
-    },
-
-    findUserByCredentials(username, password) {
-        return User.findOne({username, password}).exec();
     },
 
     updateUser(userId, user) {
