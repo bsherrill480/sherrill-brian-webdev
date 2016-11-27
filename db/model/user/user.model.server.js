@@ -33,23 +33,19 @@ module.exports = {
 
     findOrCreate(user) {
         return new Promise((resolve, reject) => {
+            function resolveUserIfFoundElseCreate(searchedUserResult) {
+                if(searchedUserResult) {
+                    resolve(searchedUserResult);
+                } else {
+                    this.createUser(user)
+                        .then(resolve)
+                        .catch(reject)
+                }
+            }
+
             this.findUser(user)
-                .then((returnedUser) => {
-                    if(returnedUser) {
-                        resolve(returnedUser);
-                    } else {
-                        this.createUser(user)
-                            .then((createdUser) => {
-                                resolve(createdUser)
-                            })
-                            .catch(function (err) {
-                                reject(err);
-                            })
-                    }
-                })
-                .catch(function (err) {
-                    reject(err);
-                });
+                .then(resolveUserIfFoundElseCreate)
+                .catch(reject);
         });
     },
 

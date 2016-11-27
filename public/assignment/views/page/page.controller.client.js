@@ -21,28 +21,32 @@
         PageService.findPagesByWebsiteId(websiteId).then(init);
     }
 
-    function NewPageController($routeParams, $location, $window, PageService) {
+    function NewPageController($routeParams, $location, $window, PageService, ValidationService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
             redirToPages = redirToPagesCallback($location, userId, websiteId);
 
+        function init() {
+            vm.websiteId = websiteId;
+            vm.userId = userId;
+            vm.page = {};
+            vm.page.websiteId = websiteId;
+            ValidationService.nameOnlyValidation.initNameOnlyValidation(vm);
+        }
+
         function done(newPage) {
-            if(newPage && newPage.name) {
+            if(ValidationService.nameOnlyValidation.validInputs(vm, newPage)) {
                 PageService.createPage(websiteId, newPage).then(redirToPages);
-            } else {
-                $window.alert('Page not filled out.')
             }
         }
         
-        vm.websiteId = websiteId;
-        vm.userId = userId;
-        vm.page = {};
-        vm.page.websiteId = websiteId;
+
         vm.done = done;
+        init();
     }
 
-    function EditPageController($routeParams, $location, $window, PageService) {
+    function EditPageController($routeParams, $location, $window, PageService, ValidationService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
@@ -50,10 +54,8 @@
             redirToPages = redirToPagesCallback($location, userId, websiteId);
 
         function done(newPage) {
-            if(newPage && newPage.name) {
+            if(ValidationService.nameOnlyValidation.validInputs(vm, newPage)) {
                 PageService.updatePage(pageId, newPage).then(redirToPages);
-            } else {
-                $window.alert('Website not filled out.')
             }
         }
 
@@ -64,6 +66,7 @@
         function init(page) {
             if(page) {
                 vm.page = _.clone(page);
+                ValidationService.nameOnlyValidation.initNameOnlyValidation(vm);
             } else { // not found. We don't have a 404 page so lets do this.
                 redirToPages();
             }
@@ -83,7 +86,9 @@
         .controller('PageListController',
             ['$routeParams', 'PageService', PageListController])
         .controller('NewPageController',
-            ['$routeParams', '$location', '$window', 'PageService', NewPageController])
+            ['$routeParams', '$location', '$window', 'PageService', 'ValidationService',
+                NewPageController])
         .controller('EditPageController',
-            ['$routeParams', '$location', '$window', 'PageService', EditPageController]);
+            ['$routeParams', '$location', '$window', 'PageService', 'ValidationService',
+                EditPageController]);
 })();

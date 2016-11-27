@@ -44,7 +44,8 @@
         vm.pageId = pageId;
     }
 
-    function NewWidgetController($routeParams, $location, $window, WidgetService) {
+    function NewWidgetController($routeParams, $location, $window, WidgetService,
+                                 ValidationService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
@@ -52,25 +53,29 @@
             widgetType = $routeParams['wgtype'],
             redirToWidgets = redirToWidgetsCallback($location, userId, websiteId, pageId);
 
+        function init() {
+            vm.userId = userId;
+            vm.websiteId = websiteId;
+            vm.pageId = pageId;
+            vm.widget = {
+                widgetType: widgetType,
+                pageId: pageId
+            };
+            ValidationService.nameOnlyValidation.initNameOnlyValidation(vm);
+        }
+
         function done(newWidget) {
-            if(newWidget && (newWidget.text || newWidget.url)) {
+            if(ValidationService.nameOnlyValidation.validInputs(vm, newWidget)) {
                 WidgetService.createWidget(pageId, newWidget).then(redirToWidgets);
-            } else {
-                $window.alert('Widget not filled out.')
             }
         }
-        
-        vm.userId = userId;
-        vm.websiteId = websiteId;
-        vm.pageId = pageId;
-        vm.widget = {
-            widgetType: widgetType,
-            pageId: pageId
-        };
+
         vm.done = done;
+        init();
     }
 
-    function editWidgetController($routeParams, $location, $window, WidgetService) {
+    function editWidgetController($routeParams, $location, $window, WidgetService,
+                                  ValidationService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
@@ -80,10 +85,8 @@
 
 
         function done(newWidget) {
-            if(newWidget && (newWidget.text || newWidget.url)) {
+            if(ValidationService.nameOnlyValidation.validInputs(vm, newWidget)) {
                 WidgetService.updateWidget(widgetId, newWidget).then(redirToWidgets);
-            } else {
-                $window.alert('Widget not filled out.')
             }
         }
 
@@ -94,6 +97,7 @@
         function init(widget) {
             if(widget) {
                 vm.widget = _.clone(widget);
+                ValidationService.nameOnlyValidation.initNameOnlyValidation(vm);
             } else { // not found. We don't have a 404 page so lets do this.
                 redirToWidgets($location, userId, websiteId, pageId);
             }
@@ -114,7 +118,9 @@
             ['$routeParams', '$sce', 'WidgetService', WidgetListController])
         .controller('WidgetChooserController', ['$routeParams', WidgetChooserController])
         .controller('NewWidgetController',
-            ['$routeParams', '$location', '$window', 'WidgetService', NewWidgetController])
+            ['$routeParams', '$location', '$window', 'WidgetService', 'ValidationService',
+                NewWidgetController])
         .controller('EditWidgetController',
-            ['$routeParams', '$location', '$window', 'WidgetService', editWidgetController]);
+            ['$routeParams', '$location', '$window', 'WidgetService', 'ValidationService',
+                editWidgetController]);
 })();

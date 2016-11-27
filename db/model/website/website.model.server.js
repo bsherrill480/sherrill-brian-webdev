@@ -6,12 +6,12 @@ const websiteSchema = require('./wesbite.schema.server'),
 module.exports = {
     createWebsiteForUser(userId, sentWebsite) {
         const website = new Website(sentWebsite);
-        website._website = userId;
+        website._user = userId;
         return website.save();
     },
 
     findAllWebsitesForUser(userId) {
-        return Website.find({_user: userId})
+        return Website.find({_user: userId});
     },
 
     findWebsiteById(websiteId) {

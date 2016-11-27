@@ -1,6 +1,7 @@
 extends page-nav-layout
 
 include ../components/headers
+include ../components/alert_error
 
 block page-header
     +leftListRightCompleted('Pages', 'Edit Page',
@@ -11,9 +12,11 @@ block page-header
 
 block page-content
     form
+        +alertError
         div.form-group
             label Name
             input.form-control(type="text" placeholder="Page Name" ng-model="model.page.name")
+            div.text-danger {{model.errors.name}}
         div.form-group
             label Title
             input.form-control(type="text" placeholder="Page Title" ng-model="model.page.title")

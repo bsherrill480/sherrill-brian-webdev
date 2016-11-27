@@ -34,14 +34,9 @@ localStrategy = new PassportLocalStategy({
     userAPI
         .findUserByUsername(username)
         .then(function(user) {
-            console.log("localStrat user:", user);
-            if (!user) {
-                done(null, false, { message: 'Incorrect username.' });
+            if (!user || !user.isValidPassword(password)) {
+                done(null, false);
             } else {
-                console.log("userIsValidPassword", user.isValidPassword);
-                if (!user.isValidPassword(password)) {
-                    done(null, false, {message: 'Incorrect password.'});
-                }
                 done(null, user);
             }
         })

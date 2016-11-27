@@ -1,18 +1,23 @@
 extends ../layout
+include ../components/alert_error
 
 block content
     div.row
         div.col-sm-12
             h1 Register
+            +alertError
             form
-                div.form-group
+                div.form-group(ng-class="{'has-error': model.errors.username}")
                     input.form-control(type="text" placeholder="username"
                     ng-model="model.user.username")
-                div.form-group
+                    div.text-danger {{model.errors.username}}
+                div.form-group(ng-class="{'has-error': model.errors.password}")
                     input.form-control(type="password" placeholder="password"
                     ng-model="model.user.password")
-                div.form-group
+                    div.text-danger {{model.errors.password}}
+                div.form-group(ng-class="{'has-error': model.errors.verifyPassword}")
                     input.form-control(type="password" placeholder="verify password"
                     ng-model="model.user.verifyPassword")
+                    div.text-danger {{model.errors.verifyPassword}}
                 a.btn.btn-success.btn-block(ng-click="model.register(model.user)") Register
                 a.btn.btn-danger.btn-block(href="#/login/") Cancel

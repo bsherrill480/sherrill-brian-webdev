@@ -3,6 +3,7 @@ include ../components/lists
 extends widget-nav-layout
 
 include ../components/headers
+include ../components/alert_error
 
 block widget-header
     +leftListRightCompleted('Widgets', 'New Widget',
@@ -12,6 +13,7 @@ block widget-header
     'model.done(model.widget)')
 
 block widget-content
+    +alertError
     div(ng-switch="model.widget.widgetType")
         div(ng-switch-when="HEADER")
             ng-include(src="'/assignment/widget/new-widget-heading.view.client.html'")

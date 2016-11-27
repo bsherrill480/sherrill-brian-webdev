@@ -2,6 +2,10 @@ div.row.header-padding
     div.col-sm-12
         form
             div.form-group
+                label Name
+                input.form-control(type="text" ng-model="model.widget.name")
+                div.text-danger {{model.errors.name}}
+            div.form-group
                 label HTML
                 //input.form-control(type="text" ng-model="model.widget.text")
                 div(ng-model="model.widget.text"

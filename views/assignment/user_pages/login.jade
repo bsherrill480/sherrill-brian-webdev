@@ -1,20 +1,24 @@
 extends ../layout
+include ../components/alert_error
 
 block content
     div.row
         div.col-sm-12
             h1 Login
+            +alertError
             form
-                div.form-group
+                div.form-group(ng-class="{'has-error': model.errors.username}")
                     input.form-control(type="text"
-                        placeholder="username" ng-model="model.user.username")
-                div.form-group
+                    placeholder="username" ng-model="model.user.username")
+                    div.text-danger {{model.errors.username}}
+                div.form-group(ng-class="{'has-error': model.errors.password}")
                     input.form-control(type="password" placeholder="password"
-                        ng-model="model.user.password" my-enter="model.login(model.user)")
+                    ng-model="model.user.password" my-enter="model.login(model.user)")
+                    div.text-danger {{model.errors.password}}
                 a.btn.btn-primary.btn-block(ng-click="model.login(model.user)") Login
                 a.btn.btn-success.btn-block(href="#/register") Register
                 a.btn.btn-primary.btn-block(href="/assignment/api/auth/facebook")
                     i.fa.fa-facebook-official
-                    span  Login with Facebook
+                    span Login with Facebook
 
 

@@ -1,6 +1,7 @@
 extends websites-nav-layout
 
 include ../components/headers
+include ../components/alert_error
 
 //block website-header
 //    +leftListRightCompleted('Websites', 'Edit Website', '/assignment/website-list.html',
@@ -15,9 +16,11 @@ block website-header
 
 block website-content
     form
+        +alertError
         div.form-group
             label Name
             input.form-control(type="text" placeholder="Name" ng-model="model.website.name")
+            div.text-danger {{model.errors.name}}
         div.form-group
             label Description
             textarea.form-control(placeholder="Description", rows=5,

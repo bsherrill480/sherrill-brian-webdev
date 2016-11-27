@@ -20,36 +20,40 @@
         WebsiteService.findWebsitesByUserId(userId).then(init);
     }
 
-    function NewWebsiteController($routeParams, $location, $window, WebsiteService) {
+    function NewWebsiteController($routeParams, $location, $window, WebsiteService, 
+                                  ValidationService) {
         var vm = this,
             userId = $routeParams['uid'],
             redirToWebsites = redirToWebsitesCallback($location, userId);
+        
+        function init() {
+            vm.userId = userId;
+            vm.website = {};
+            vm.website.developerId = userId;
+            ValidationService.nameOnlyValidation.initNameOnlyValidation(vm);
+        }
 
         function done(newWebsite) {
-            if(newWebsite && newWebsite.name) {
+            if(ValidationService.nameOnlyValidation.validInputs(vm, newWebsite)) {
                 WebsiteService.createWebsite(userId, newWebsite).then(redirToWebsites);
-            } else {
-                $window.alert('Website not filled out.')
             }
         }
 
-        vm.userId = userId;
-        vm.website = {};
-        vm.website.developerId = userId;
+        
         vm.done = done;
+        init();
     }
 
-    function EditWebsiteController($routeParams, $location, $window, WebsiteService) {
+    function EditWebsiteController($routeParams, $location, $window, WebsiteService,
+                                   ValidationService) {
         var vm = this,
             userId = $routeParams['uid'],
             websiteId = $routeParams['wid'],
             redirToWebsites = redirToWebsitesCallback($location, userId);
 
         function done(newWebsite) {
-            if(newWebsite && newWebsite.name) {
+            if(ValidationService.nameOnlyValidation.validInputs(vm, newWebsite)) {
                 WebsiteService.updateWebsite(websiteId, newWebsite).then(redirToWebsites);
-            } else {
-                $window.alert('Website not filled out.')
             }
         }
 
@@ -60,6 +64,7 @@
         function init(website) {
             if(website) {
                 vm.website = website;
+                ValidationService.nameOnlyValidation.initNameOnlyValidation(vm);
             } else { // not found. We don't have a 404 page so lets do this.
                 redirToWebsites();
             }
@@ -76,7 +81,9 @@
         .controller('WebsiteListController',
             ['$routeParams', 'WebsiteService', WebsiteListController])
         .controller('NewWebsiteController',
-            ['$routeParams', '$location', '$window', 'WebsiteService', NewWebsiteController])
+            ['$routeParams', '$location', '$window', 'WebsiteService', 'ValidationService', 
+                NewWebsiteController])
         .controller('EditWebsiteController',
-            ['$routeParams', '$location', '$window', 'WebsiteService', EditWebsiteController]);
+            ['$routeParams', '$location', '$window', 'WebsiteService', 'ValidationService', 
+                EditWebsiteController]);
 })();

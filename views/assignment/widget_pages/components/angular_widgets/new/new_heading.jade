@@ -4,6 +4,7 @@ div.row.header-padding
             div.form-group
                 label Name
                 input.form-control(type="text" ng-model="model.widget.name")
+                div.text-danger {{model.errors.name}}
             div.form-group
                 label Text
                 input.form-control(type="text" ng-model="model.widget.text")
